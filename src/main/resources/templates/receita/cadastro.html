@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+</head>
+<body>
+	<section class="layout-content" layout:fragment="corpo">
+
+		<div class="container" id="cadastro">
+
+			<div th:replace="fragments/alert"></div>
+
+			<div class="card uper">
+				<div class="card-header">Adicionar Receita</div>
+				<div class="card-body">
+
+					<form
+						th:action="${receita.id == null} ? @{/receitas/salvar} : @{/receitas/editar}"
+						th:object="${receita}" method="POST">
+
+						<div class="form-group ">
+							<label for="pessoa">Paciente</label> <select id="pessoa"
+								class="form-control" th:field="*{pessoa}"
+								th:classappend="${#fields.hasErrors('pessoa')} ? 'is-invalid'">
+								<option value="">Selecione...</option>
+								<option th:each="c : ${pessoas}" th:value="${c.id}"
+									th:text="${c.nome}"></option>
+							</select>
+							<div class="invalid-feedback">
+								<span th:errors="*{pessoa}"></span>
+							</div>
+						</div>
+
+						<div class="form-group ">
+							<label for="dataEntrada">Data</label> <input
+								type="date" class="form-control" id="data"
+								th:field="*{data}"
+								th:classappend="${#fields.hasErrors('data')} ? 'is-invalid'" />
+							<div class="invalid-feedback">
+								<span th:errors="*{data}"></span>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="orientacoesGerais">Orientações Gerais</label> <input type="text"
+								class="form-control" id="orientacoesGerais" 
+								autofocus="autofocus" th:field="*{orientacoesGerais}"
+								th:classappend="${#fields.hasErrors('orientacoesGerais')} ? 'is-invalid'" />
+							<div class="invalid-feedback">
+								<span th:errors="*{orientacoesGerais}"></span>
+							</div>
+						</div>
+						
+						<input type="hidden" id="id" th:field="*{id}" />
+						<button type="submit" class="btn btn-primary btn-sm">Salvar</button>
+	            <div class="table-responsive">
+	                <table class="table table-striped table-hover table-sm">
+	                    <thead>
+	                    <tr>
+	                        <th>#</th>
+	                        <th>Medicamento</th>
+	                        <th>Descrição</th>
+	                        <th>Forma de Uso</th>
+	                        <th>Ação</th>
+	                    </tr>
+	                    </thead>
+	                    <tbody>
+	
+		                    <tr th:each="c : ${medicamentosReceita}">
+
+						
+		                        <td>
+<!--									 <a th:text="${c.medicamentos_receita_id}"></a> -->
+									<select th:value="*{c.medicamentos_receita_id}">
+									<option value="">Selecione...</option>
+									<option th:each="d : ${medicamentos}" th:value="${c.id}"
+										th:text="${d.descricao}"></option>
+									</select>
+								</td>	
+		                        <td>
+									 <a th:text="${c.id}"></a>
+								</td>	
+		                        <td>
+									 <a th:text="${c.descricao}"></a>
+								</td>	
+		                        <td>
+									 <a th:text="${c.forma_uso}"></a>
+								</td>	
+		                        <td colspan="2">
+		                            <a class="btn btn-info btn-sm" th:href="@{/receitas/editar/{id} (id=${c.id}) }" role="button">
+		                                <span class="oi oi-brush" title="Editar" aria-hidden="true"></span>
+		                            </a>
+		                            <button th:id="${#strings.concat('btn_receitas/excluir/', receita.id, c.id)  }" type="button" 
+		                                    class="btn btn-danger btn-sm" data-toggle="modal" data-target="#myModal">
+		                                <span class="oi oi-circle-x" title="Exclusão desabilitada" aria-hidden="true"></span>
+		                            </button>
+		                        </td>
+		                    </tr>	
+	                    </tbody>
+	                </table>
+	            </div>
+
+					</form>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>
