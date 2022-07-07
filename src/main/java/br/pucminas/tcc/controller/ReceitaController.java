@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import br.pucminas.tcc.model.entity.Medicamento;
-import br.pucminas.tcc.model.entity.Pessoa;
+import br.pucminas.tcc.model.entity.PessoaGenerica;
 import br.pucminas.tcc.model.entity.Receita;
 //import br.pucminas.tcc.model.entity.ReceitasMedicamentosReceita;
 import br.pucminas.tcc.model.service.MedicamentoService;

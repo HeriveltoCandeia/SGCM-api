@@ -2,20 +2,20 @@ package br.pucminas.tcc.model.dao;
 
 import java.util.List;
 
-import br.pucminas.tcc.model.entity.Pessoa;
+import br.pucminas.tcc.model.entity.PessoaGenerica;
 
 public interface PessoaDao {
 	
-	void save(Pessoa pessoa);
+	void save(PessoaGenerica pessoa);
 	
-	void update(Pessoa pessoa);
+	void update(PessoaGenerica pessoa);
 	
 	void delete(Long id);
 	
-	Pessoa findById(Long id);
+	PessoaGenerica findById(Long id);
 	
-	List<Pessoa> findAll();
+	List<PessoaGenerica> findAll();
 
-	List<Pessoa> findByPapelId(Long id);
+	List<PessoaGenerica> findByPapelId(Long id);
 
 }

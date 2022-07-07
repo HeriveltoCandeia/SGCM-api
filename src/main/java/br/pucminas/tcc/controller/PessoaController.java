@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import br.pucminas.tcc.model.entity.Pessoa;
+import br.pucminas.tcc.model.entity.PessoaGenerica;
 import br.pucminas.tcc.model.service.PessoaService;
 
 @Controller
@@ -37,12 +37,12 @@ public class PessoaController {
 	}	
 	
 	@GetMapping("/cadastrar")
-	public String cadastrar(Pessoa pessoa) {
+	public String cadastrar(PessoaGenerica pessoa) {
 		return "pessoa/cadastro";
 	}
 	
 	@PostMapping("/salvar")
-	public String salvar(@Valid Pessoa pessoa, BindingResult result,
+	public String salvar(@Valid PessoaGenerica pessoa, BindingResult result,
 			RedirectAttributes attr) {
 		
 		if(result.hasErrors()) {
@@ -61,7 +61,7 @@ public class PessoaController {
 	}
 	
 	@PostMapping("/editar")
-	public String editar(@Valid Pessoa pessoa, BindingResult result,
+	public String editar(@Valid PessoaGenerica pessoa, BindingResult result,
 			RedirectAttributes attr) {
 		
 		if(result.hasErrors()) {

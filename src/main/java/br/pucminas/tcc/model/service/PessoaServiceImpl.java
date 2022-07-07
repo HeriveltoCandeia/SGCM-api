@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import br.pucminas.tcc.model.dao.PessoaDao;
-import br.pucminas.tcc.model.entity.Pessoa;
+import br.pucminas.tcc.model.entity.PessoaGenerica;
 
 @Service @Transactional(readOnly = false)
 public class PessoaServiceImpl implements PessoaService {
@@ -16,12 +16,12 @@ public class PessoaServiceImpl implements PessoaService {
 	private PessoaDao dao;
 
 	@Override
-	public void salvar(Pessoa pessoa) {
+	public void salvar(PessoaGenerica pessoa) {
 		dao.save(pessoa);
 	}
 
 	@Override
-	public void editar(Pessoa pessoa) {
+	public void editar(PessoaGenerica pessoa) {
 		dao.update(pessoa);		
 	}
 
@@ -31,17 +31,17 @@ public class PessoaServiceImpl implements PessoaService {
 	}
 
 	@Override
-	public Pessoa buscarPorId(Long id) {
+	public PessoaGenerica buscarPorId(Long id) {
 		return dao.findById(id);
 	}
 
 	@Override
-	public List<Pessoa> buscarTodos() {
+	public List<PessoaGenerica> buscarTodos() {
 		return dao.findAll();
 	}
 
 	@Override
-	public List<Pessoa> buscarPorPapelId(Long id) {
+	public List<PessoaGenerica> buscarPorPapelId(Long id) {
 		return dao.findByPapelId(id);
 	}
 	

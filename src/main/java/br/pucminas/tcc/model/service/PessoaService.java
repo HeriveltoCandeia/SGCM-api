@@ -2,20 +2,20 @@ package br.pucminas.tcc.model.service;
 
 import java.util.List;
 
-import br.pucminas.tcc.model.entity.Pessoa;
+import br.pucminas.tcc.model.entity.PessoaGenerica;
 
 public interface PessoaService {
 	
-	void salvar(Pessoa pessoa);
+	void salvar(PessoaGenerica pessoa);
 	
-	void editar(Pessoa pessoa);
+	void editar(PessoaGenerica pessoa);
 	
 	void excluir(Long id);
 	
-	Pessoa buscarPorId(Long id);
+	PessoaGenerica buscarPorId(Long id);
 	
-	List<Pessoa> buscarTodos();
+	List<PessoaGenerica> buscarTodos();
 
-	List<Pessoa> buscarPorPapelId(Long id);
+	List<PessoaGenerica> buscarPorPapelId(Long id);
 	
 }

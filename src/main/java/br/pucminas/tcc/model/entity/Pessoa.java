@@ -1,29 +1,16 @@
 package br.pucminas.tcc.model.entity;
 
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 @SuppressWarnings("serial")
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "PESSOAS")
 public class Pessoa extends AbstractEntity<Long>{
 
@@ -34,36 +21,23 @@ private String cpf;
 
 @NotBlank
 @Size(min=3, max=60)
-@Column(name="nome", unique=true, nullable=false, length=60)
+@Column(name="nome", nullable=false, length=60)
 private String nome;
 
-@ManyToMany 
-private List<Papel> papeis; 
-//@JoinTable(name="PESSOA_PAPEL", 
-//		   joinColumns= @JoinColumn(name="PAPEL_ID"),
-//           inverseJoinColumns= @JoinColumn(name="PESSOA_ID"))
+@NotBlank
+@Size(min=1, max=3)
+@Column(name="sexo", nullable=false, length=3)
+private String sexo;
 
-	
-@OneToMany(mappedBy="pessoa")
-private List<Receita> receitas;
+@NotBlank
+@Size(min=8, max=10)
+@Column(name="dataNascimento", nullable=false, length=10)
+private String dataNascimento;
 
-public List<Receita> getReceitas() {
-	return receitas;
-}
-
-public void setReceitas(List<Receita> receitas) {
-	this.receitas = receitas;
-}
-
-public List<Papel> getPapeis()
-{ 
-  return papeis; 
-} 
-
-public void setPapeis(List<Papel> papeis) 
-{ 
-  this.papeis = papeis; 
-} 
+@NotBlank
+@Size(max=60)
+@Column(name="email", nullable=false, length=60)
+private String email;
 
 public String getCpf() 
 { 
@@ -79,8 +53,34 @@ public String getNome()
 { 
   return nome; 
 } 
+
 public void setNome(String nome) 
 { 
   this.nome = nome; 
 }
+
+public String getSexo() {
+	return sexo;
+}
+
+public void setSexo(String sexo) {
+	this.sexo = sexo;
+}
+
+public String getDataNascimento() {
+	return dataNascimento;
+}
+
+public void setDataNascimento(String dataNascimento) {
+	this.dataNascimento = dataNascimento;
+}
+
+public String getEmail() {
+	return email;
+}
+
+public void setEmail(String email) {
+	this.email = email;
+}
+
 }

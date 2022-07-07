@@ -1,6 +1,7 @@
 package br.pucminas.tcc.model.entity;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -22,26 +23,34 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "PAPEIS")
-public class Papel extends AbstractEntity<Long>{
+@Table(name = "CARGOS")
+public class Cargo extends AbstractEntity<Long>{
 
 @NotBlank
 @Size(min=3, max=30)
 @Column(name="descricao", nullable=false, unique=true, length=30)
 private String descricao;
+	
+//@JoinTable(name="RECEITA_EXAME", 
+//joinColumns= {@JoinColumn(name="RECEITA_ID")},
+//inverseJoinColumns= {@JoinColumn(name="EXAME_ID")})
 
-@ManyToMany(mappedBy="papeis")//, cascade = CascadeType.ALL)
-private List<PessoaGenerica> pessoas; 
+//@OneToMany(mappedBy = "receita")
+//Set<ReceitasExamesReceita> ratings;
 
-public List<PessoaGenerica> getPessoas()
-{ 
-  return pessoas; 
-} 
 
-public void setPessoas(List<PessoaGenerica> pessoas) 
-{ 
-  this.pessoas = pessoas; 
-} 
+//@ManyToMany(mappedBy="examesReceita")//cascade = CascadeType.ALL) 
+//private List<Receita> receitas; 
+
+//public List<Receita> getReceitas()
+//{ 
+//  return receitas; 
+//} 
+//
+//public void setReceitas(List<Receita> receitas) 
+//{ 
+//  this.receitas = receitas; 
+//} 
 
 public String getDescricao() 
 { 

@@ -50,7 +50,7 @@ private String orientacoesGerais;
 
 
 @ManyToOne
-private Pessoa pessoa; 
+private PessoaGenerica pessoaGenerica; 
 
 //@OneToMany(mappedBy = "receita")
 //Set<ReceitasMedicamentosReceita> ratings;
@@ -69,12 +69,12 @@ private Pessoa pessoa;
 //	this.ratings = ratings;
 //}
 
-public Pessoa getPessoa() {
-	return pessoa;
+public PessoaGenerica getPessoa() {
+	return pessoaGenerica;
 }
 
-public void setPessoa(Pessoa pessoa) {
-	this.pessoa = pessoa;
+public void setPessoa(PessoaGenerica pessoa) {
+	this.pessoaGenerica = pessoa;
 }
 
 //public List<Medicamento> getMedicamentosReceita()
