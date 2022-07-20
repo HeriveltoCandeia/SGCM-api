@@ -18,5 +18,21 @@ public class Cliente extends Pessoa{
 	@Size(max=40)
 	@Column(name="numeroCarteirinha", nullable=true, length=40)
 	private String numeroCarteirinha;
+
+	public Integer getCodigoConvenioMedico() {
+		return codigoConvenioMedico;
+	}
+
+	public void setCodigoConvenioMedico(Integer codigoConvenioMedico) {
+		this.codigoConvenioMedico = codigoConvenioMedico;
+	}
+
+	public String getNumeroCarteirinha() {
+		return numeroCarteirinha;
+	}
+
+	public void setNumeroCarteirinha(String numeroCarteirinha) {
+		this.numeroCarteirinha = numeroCarteirinha;
+	}
 	
 }

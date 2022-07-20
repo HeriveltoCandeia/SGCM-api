@@ -12,7 +12,6 @@ import javax.validation.constraints.Size;
 @PrimaryKeyJoinColumn(name="id")
 public class Funcionario extends Pessoa{
 	
-	@NotBlank
 	@Column(name="codigoCargo", nullable=false)
 	private Integer codigoCargo;
 	
