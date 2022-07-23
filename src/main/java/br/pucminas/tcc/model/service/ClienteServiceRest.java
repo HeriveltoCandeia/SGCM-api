@@ -29,7 +29,7 @@ public class ClienteServiceRest {
 
 	public Cliente update(Long id, Cliente obj) {
 		Cliente  objA  = findById(id);
-		objA.setCodigoConvenioMedico(obj.getCodigoConvenioMedico());
+		objA.setConvenioMedico(obj.getConvenioMedico());
 		objA.setCpf(obj.getCpf());
 		objA.setDataNascimento(obj.getDataNascimento());
 		objA.setEmail(obj.getEmail());

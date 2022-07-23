@@ -12,19 +12,21 @@ import javax.validation.constraints.Size;
 @PrimaryKeyJoinColumn(name="id")
 public class Cliente extends Pessoa{
 	
-	@Column(name="codigoConvenioMedico", nullable=true)
-	private Integer codigoConvenioMedico;
+	@Size(max=40)
+	@Column(name="convenioMedico", nullable=true, length=40)
+	private String convenioMedico;
 	
 	@Size(max=40)
 	@Column(name="numeroCarteirinha", nullable=true, length=40)
 	private String numeroCarteirinha;
 
-	public Integer getCodigoConvenioMedico() {
-		return codigoConvenioMedico;
+
+	public String getConvenioMedico() {
+		return convenioMedico;
 	}
 
-	public void setCodigoConvenioMedico(Integer codigoConvenioMedico) {
-		this.codigoConvenioMedico = codigoConvenioMedico;
+	public void setConvenioMedico(String convenioMedico) {
+		this.convenioMedico = convenioMedico;
 	}
 
 	public String getNumeroCarteirinha() {
