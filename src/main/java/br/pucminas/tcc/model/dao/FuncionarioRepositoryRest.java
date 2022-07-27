@@ -11,4 +11,6 @@ import br.pucminas.tcc.model.entity.Funcionario;
 public interface FuncionarioRepositoryRest extends JpaRepository<Funcionario, Long>{
 
 	Optional<Funcionario> findByUsuario(String usuario);
+	
+	boolean existsByUsuario(String usuario);
 }

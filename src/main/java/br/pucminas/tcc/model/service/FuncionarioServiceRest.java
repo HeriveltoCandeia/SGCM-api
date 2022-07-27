@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.FuncionarioRepositoryRest;
 import br.pucminas.tcc.model.entity.Funcionario;
+import br.pucminas.tcc.util.erros.UsuarioCadastradoException;
 
 @Service 
 public class FuncionarioServiceRest {
@@ -23,6 +24,11 @@ public class FuncionarioServiceRest {
 	}
 	
 	public Funcionario create(Funcionario obj) {
+		boolean exists = repository.existsByUsuario(obj.getUsuario());
+		if (exists)
+		{
+			throw new UsuarioCadastradoException(obj.getUsuario());
+		}
 		obj.setId(null);
 		return repository.save(obj);
 	}
