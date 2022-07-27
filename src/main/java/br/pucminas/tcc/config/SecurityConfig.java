@@ -1,5 +1,6 @@
 package br.pucminas.tcc.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,16 +11,24 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import br.pucminas.tcc.model.service.UsuarioService;
+
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
+	@Autowired
+	private UsuarioService usuarioService; 
+	
 	@Override
 	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth
+/*		auth
 			.inMemoryAuthentication()
 			.withUser("admin")
 			.password("admin")
-			.roles("USER");
+			.roles("USER"); */
+		auth 
+			.userDetailsService(usuarioService)
+			.passwordEncoder(passwordEncoder());
 	}
 
 	@Bean

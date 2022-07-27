@@ -24,6 +24,14 @@ public class Funcionario extends Pessoa{
 	@Column(name="dataDesligamento", length=10)
 	private String dataDesligamento;
 	
+	@Size(min=4, max=20)
+	@Column(name="usuario", unique=true, length=20)
+	private String usuario;
+
+	@Size(min=8, max=20)
+	@Column(name="senha", nullable=false, length=20)
+	private String senha;
+	
 	public Integer getCodigoCargo() {
 		return codigoCargo;
 	}
@@ -46,6 +54,22 @@ public class Funcionario extends Pessoa{
 
 	public void setDataDesligamento(String dataDesligamento) {
 		this.dataDesligamento = dataDesligamento;
+	}
+
+	public String getUsuario() {
+		return usuario;
+	}
+
+	public void setUsuario(String usuario) {
+		this.usuario = usuario;
+	}
+
+	public String getSenha() {
+		return senha;
+	}
+
+	public void setSenha(String senha) {
+		this.senha = senha;
 	}
 	
 }
