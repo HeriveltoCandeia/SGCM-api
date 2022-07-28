@@ -15,12 +15,13 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 		//** na url significa qualquer coisa
 		http
 			.authorizeRequests()
-			.antMatchers("/clientesRest/**","medicamentosRest/**").authenticated()
-			.antMatchers("/examesRest/**").hasRole("USER")
+			.antMatchers("/clientesRest/**","/funcionariosRest/**").authenticated()
+			.antMatchers("/examesRest/**","/medicamentosRest/**").hasRole("USER")
 			.anyRequest().denyAll(); // para qualquer outra, negue todas.
 		//.antMatchers("/clientesRest/**").hasRole("USER"); apenas determinada role
 		//.antMatchers("/clientesRest/**").hasAnyRole("USER", "ADMIN"); => várias roles
 		//.antMatchers("/clientesRest/**").permitAll(); => permite qualquer acionamento
+		// desnecessário => .antMatchers("/oauth/**").permitAll()
 	}
 
 }
