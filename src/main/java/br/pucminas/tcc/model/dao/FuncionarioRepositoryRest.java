@@ -1,5 +1,6 @@
 package br.pucminas.tcc.model.dao;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -13,4 +14,7 @@ public interface FuncionarioRepositoryRest extends JpaRepository<Funcionario, Lo
 	Optional<Funcionario> findByUsuario(String usuario);
 	
 	boolean existsByUsuario(String usuario);
+	
+	Optional<List<Funcionario>> findByCodigoCargo(Long codigoCargo);
+	
 }

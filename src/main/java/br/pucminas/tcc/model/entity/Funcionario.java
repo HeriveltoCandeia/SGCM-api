@@ -1,11 +1,16 @@
 package br.pucminas.tcc.model.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Table(name = "FUNCIONARIOS")
@@ -13,7 +18,7 @@ import javax.validation.constraints.Size;
 public class Funcionario extends Pessoa{
 	
 	@Column(name="codigoCargo", nullable=false)
-	private Integer codigoCargo;
+	private Long codigoCargo;
 	
 	@NotBlank
 	@Size(min=8, max=10)
@@ -21,7 +26,7 @@ public class Funcionario extends Pessoa{
 	private String dataAdmissao;
 
 	@Size(min=8, max=10)
-	@Column(name="dataDesligamento", length=10)
+	@Column(name="dataDesligamento", nullable=true, length=10)
 	private String dataDesligamento;
 	
 	@Size(min=4, max=20)
@@ -31,12 +36,17 @@ public class Funcionario extends Pessoa{
 	@Size(min=8, max=20)
 	@Column(name="senha", nullable=false, length=20)
 	private String senha;
+
+//	@JsonBackReference	
+//	@OneToMany(mappedBy = "codigoMedicoId")
+//	private List<ChaveCompostaAgenda> chavesCompostas;
 	
-	public Integer getCodigoCargo() {
+	
+	public Long getCodigoCargo() {
 		return codigoCargo;
 	}
 
-	public void setCodigoCargo(Integer codigoCargo) {
+	public void setCodigoCargo(Long codigoCargo) {
 		this.codigoCargo = codigoCargo;
 	}
 

@@ -43,6 +43,14 @@ public class FuncionarioControllerRest {
 		List <Funcionario> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
+
+	
+	@CrossOrigin
+	@GetMapping("/codigoCargo/{id}")
+	public ResponseEntity<List<Funcionario>> finByCodigoCargo(@PathVariable("id") Long id) {
+		List <Funcionario> obj = service.findByCodigoCargo(id);
+		return ResponseEntity.ok().body(obj);
+	}
 	
 	@CrossOrigin
 	@PostMapping

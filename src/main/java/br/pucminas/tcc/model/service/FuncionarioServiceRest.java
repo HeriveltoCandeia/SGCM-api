@@ -19,6 +19,11 @@ public class FuncionarioServiceRest {
 		return obj.orElse(null);
 	}
 
+	public List<Funcionario> findByCodigoCargo(Long id) {
+		Optional<List<Funcionario>> obj = repository.findByCodigoCargo(id);
+		return obj.orElse(null);
+	}	
+	
 	public List<Funcionario> findAll() {
 		return repository.findAll();
 	}
