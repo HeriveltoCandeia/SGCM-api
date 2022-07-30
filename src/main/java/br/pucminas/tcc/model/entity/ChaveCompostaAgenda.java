@@ -16,10 +16,11 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Embeddable
 public class ChaveCompostaAgenda implements Serializable {
 
-	@Column(name="codigo_medico_id")
+	@Column(name="codigo_medico_id", nullable=false)
 	private Long codigoMedicoId;
 	
- 	private LocalDateTime dataAgenda;
+	@Column(nullable=false)
+	private LocalDateTime dataAgenda;
  	
    
  	public ChaveCompostaAgenda() { }

@@ -32,17 +32,19 @@ public class AgendaMedicaServiceRest {
 		return repository.save(obj);
 	}
 
-	public AgendaMedica update(ChaveCompostaAgenda chaveCompostaAgenda, AgendaMedica obj) {
-		AgendaMedica  objA  = findByChaveCompostaAgenda(chaveCompostaAgenda);
+	public AgendaMedica update(Long id, AgendaMedica obj) {
+		AgendaMedica  objA  = findById(id);
 		objA.setCliente(obj.getCliente());
 		objA.setCodigoSituacao(obj.getCodigoSituacao());
 		objA.setCodigoTipo(obj.getCodigoTipo());
+		objA.setDataReg(obj.getDataReg());
+		objA.setChaveCompostaAgenda(obj.getChaveCompostaAgenda());
 		return repository.save(objA);
 	}
 
-	public void delete(ChaveCompostaAgenda chaveCompostaAgenda) {
-		findByChaveCompostaAgenda(chaveCompostaAgenda);
-		repository.deleteByChaveCompostaAgenda(chaveCompostaAgenda);
+	public void delete(Long id) {
+		findById(id);
+		repository.deleteById(id);
 	}
 
 }
