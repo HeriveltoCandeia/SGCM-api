@@ -27,37 +27,32 @@ public class ExameControllerRest {
 	@Autowired
 	private ExameServiceRest service;
 	
-	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<Exame> finById(@PathVariable("id") Long id) {
 		Exame obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
 
-	@CrossOrigin
 	@GetMapping
 	public ResponseEntity<List<Exame>> finByAll() {
 		List <Exame> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<Exame> incluir(@RequestBody Exame obj) {
-		
+		System.out.println(obj);
 		obj=service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
-	@CrossOrigin
 	@PutMapping(value="/{id}")
 	public ResponseEntity<Exame> editar(@PathVariable Long id, @RequestBody Exame obj){
 		Exame newObj = service.update(id,obj);
 		return ResponseEntity.ok().body(newObj);
 	}
 	
-	@CrossOrigin
 	@DeleteMapping(value="/{id}")
 	public ResponseEntity<Void> excluir(@PathVariable Long id){
 		service.delete(id);

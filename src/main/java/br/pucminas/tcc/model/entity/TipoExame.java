@@ -12,11 +12,9 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
@@ -25,20 +23,18 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name = "EXAMES")
-public class Exame extends AbstractEntity<Long>{
+@Table(name = "TIPOSEXAMES")
+public class TipoExame extends AbstractEntity<Long>{
 
 @NotBlank
 @Size(min=3, max=30)
 @Column(name="descricao", nullable=false, unique=true, length=30)
 private String descricao;
 
-@JsonManagedReference
-@NotNull
-@ManyToOne
-@JoinColumn(name = "tipo_exame_id")
-@JsonIgnore
-private TipoExame tipoExame;
+@JsonBackReference	
+@OneToMany(mappedBy = "tipoExame")
+private List<Exame> exames;
+
 
 //@JoinTable(name="RECEITA_EXAME", 
 //joinColumns= {@JoinColumn(name="RECEITA_ID")},
@@ -69,11 +65,11 @@ public void setDescricao(String descricao)
 { 
   this.descricao = descricao; 
 }
-public TipoExame getTipoExame() {
-	return tipoExame;
+public List<Exame> getExames() {
+	return exames;
 }
-public void setTipoExame(TipoExame tipoExame) {
-	this.tipoExame = tipoExame;
+public void setExames(List<Exame> exames) {
+	this.exames = exames;
 }
 
 }
