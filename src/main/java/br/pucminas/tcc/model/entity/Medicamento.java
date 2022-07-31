@@ -30,7 +30,12 @@ public class Medicamento extends AbstractEntity<Long>{
 @Size(min=3, max=30)
 @Column(name="descricao", nullable=false, unique=true, length=30)
 private String descricao;
-	
+
+
+@JsonBackReference	
+@OneToMany(mappedBy = "medicamento")
+private List<ProntuarioMedicamento> prontuarioMedicamentos;
+
 //@JoinTable(name="RECEITA_MEDICAMENTO", 
 //joinColumns= {@JoinColumn(name="RECEITA_ID")},
 //inverseJoinColumns= {@JoinColumn(name="MEDICAMENTO_ID")})

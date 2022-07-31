@@ -40,6 +40,11 @@ private String descricao;
 @JsonIgnore
 private TipoExame tipoExame;
 
+
+@JsonBackReference	
+@OneToMany(mappedBy = "exame")
+private List<ProntuarioExame> prontuarioExames;
+
 //@JoinTable(name="RECEITA_EXAME", 
 //joinColumns= {@JoinColumn(name="RECEITA_ID")},
 //inverseJoinColumns= {@JoinColumn(name="EXAME_ID")})

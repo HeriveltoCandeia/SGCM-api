@@ -17,6 +17,7 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/clientesRest/**","/funcionariosRest/**").authenticated()
 			.antMatchers("/examesRest/**","/tiposExamesRest/**","/medicamentosRest/**","/agendasMedicasRest/**").hasRole("USER")
+			.antMatchers("/prontuariosMedicosRest/**","/prontuariosMedicamentosRest/**","/prontuariosExamesRest/**").hasRole("USER")
 			.anyRequest().denyAll(); // para qualquer outra, negue todas.
 		//.antMatchers("/clientesRest/**").hasRole("USER"); apenas determinada role
 		//.antMatchers("/clientesRest/**").hasAnyRole("USER", "ADMIN"); => várias roles
