@@ -35,6 +35,9 @@ public class ProntuarioExame extends AbstractEntity<Long>{
 	
 	@Column(name="orientacoes", nullable=true, length=1000)
 	private String orientacoes;
+
+	@Column(name="resultado", nullable=true, length=100)
+	private String resultado;
 	
 	public String getOrientacoes() {
 		return orientacoes;
@@ -66,6 +69,14 @@ public class ProntuarioExame extends AbstractEntity<Long>{
 
 	public void setCodigoSituacao(Integer codigoSituacao) {
 		this.codigoSituacao = codigoSituacao;
+	}
+
+	public String getResultado() {
+		return resultado;
+	}
+
+	public void setResultado(String resultado) {
+		this.resultado = resultado;
 	}
 
 	

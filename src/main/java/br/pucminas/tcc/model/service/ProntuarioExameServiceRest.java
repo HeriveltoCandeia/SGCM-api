@@ -33,6 +33,7 @@ public class ProntuarioExameServiceRest {
 		objA.setExame(obj.getExame());
 		objA.setOrientacoes(obj.getOrientacoes());
 		objA.setCodigoSituacao(obj.getCodigoSituacao());
+		objA.setResultado(obj.getResultado());	
 		return repository.save(objA);
 	}
 
