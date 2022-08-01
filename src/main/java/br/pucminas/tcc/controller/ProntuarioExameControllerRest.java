@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +17,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.pucminas.tcc.model.entity.ProntuarioExame;
+import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
+import br.pucminas.tcc.model.entity.ProntuarioMedico;
 import br.pucminas.tcc.model.service.ProntuarioExameServiceRest;
 
 @RestController
@@ -31,6 +34,17 @@ public class ProntuarioExameControllerRest {
 		return ResponseEntity.ok().body(obj);
 	}
 
+	
+	@CrossOrigin
+	@GetMapping("/prontuarioExame/{id}")
+	public ResponseEntity<List<ProntuarioExame>> findByProntuarioExame(@PathVariable("id") Long id) {
+//		ProntuarioMedico pm = service2.findById(id);
+		ProntuarioMedico pm = new ProntuarioMedico();
+		pm.setId(id);
+		List <ProntuarioExame> obj = service.findByProntuarioMedico(pm);
+		return ResponseEntity.ok().body(obj);
+	}
+	
 	@GetMapping
 	public ResponseEntity<List<ProntuarioExame>> finByAll() {
 		List <ProntuarioExame> obj = service.findAll();

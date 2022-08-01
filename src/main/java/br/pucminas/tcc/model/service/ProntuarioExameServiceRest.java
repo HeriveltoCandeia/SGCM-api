@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.ProntuarioExameRest;
 import br.pucminas.tcc.model.entity.ProntuarioExame;
+import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
+import br.pucminas.tcc.model.entity.ProntuarioMedico;
 
 @Service 
 public class ProntuarioExameServiceRest {
@@ -18,6 +20,13 @@ public class ProntuarioExameServiceRest {
 		return obj.orElse(null);
 	}
 
+	public List<ProntuarioExame> findByProntuarioMedico(ProntuarioMedico id) {
+		System.out.println("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX");
+		Optional<List<ProntuarioExame>> obj = repository.findByProntuarioMedico(id);
+//		Optional<List<ProntuarioMedicamento>> obj = repository2.findByProntuarioId(id.getId());
+
+		return obj.orElse(null);
+	}	
 
 	public List<ProntuarioExame> findAll() {
 		return repository.findAll();

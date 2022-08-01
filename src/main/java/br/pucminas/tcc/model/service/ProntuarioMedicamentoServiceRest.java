@@ -7,18 +7,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.ProntuarioExameRest;
+import br.pucminas.tcc.model.dao.ProntuarioMedicamentoDao;
 import br.pucminas.tcc.model.dao.ProntuarioMedicamentoRest;
+import br.pucminas.tcc.model.entity.Funcionario;
+import br.pucminas.tcc.model.entity.Medicamento;
 import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
+import br.pucminas.tcc.model.entity.ProntuarioMedico;
 
 @Service 
 public class ProntuarioMedicamentoServiceRest {
 	@Autowired
 	private ProntuarioMedicamentoRest repository;
+	
+	@Autowired ProntuarioMedicamentoDao repository2;
 	public ProntuarioMedicamento findById(Long id) {
 		Optional<ProntuarioMedicamento> obj = repository.findById(id);
 		return obj.orElse(null);
 	}
 
+	public List<ProntuarioMedicamento> findByProntuarioMedico(ProntuarioMedico id) {
+		System.out.println("--------------------------------------------------");
+		Optional<List<ProntuarioMedicamento>> obj = repository.findByProntuarioMedico(id);
+//		Optional<List<ProntuarioMedicamento>> obj = repository2.findByProntuarioId(id.getId());
+
+		return obj.orElse(null);
+	}	
 
 	public List<ProntuarioMedicamento> findAll() {
 		return repository.findAll();
