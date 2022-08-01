@@ -31,7 +31,7 @@ public class Medicamento extends AbstractEntity<Long>{
 @Column(name="descricao", nullable=false, unique=true, length=30)
 private String descricao;
 
-
+@JsonIgnore
 @JsonBackReference	
 @OneToMany(mappedBy = "medicamento")
 private List<ProntuarioMedicamento> prontuarioMedicamentos;

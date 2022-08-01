@@ -18,12 +18,14 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "PRONTUARIOMEDICAMENTO")
 public class ProntuarioMedicamento extends AbstractEntity<Long>{
 
+	@JsonIgnore
 	@JsonManagedReference
 	@NotNull
 	@ManyToOne
 	@JoinColumn(name="codigo_prontuario_id", nullable=false)
 	private ProntuarioMedico prontuarioMedico;
 
+	@JsonIgnore
 	@JsonManagedReference
 	@NotNull
 	@ManyToOne

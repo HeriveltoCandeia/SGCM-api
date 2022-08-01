@@ -40,7 +40,7 @@ private String descricao;
 @JsonIgnore
 private TipoExame tipoExame;
 
-
+@JsonIgnore
 @JsonBackReference	
 @OneToMany(mappedBy = "exame")
 private List<ProntuarioExame> prontuarioExames;

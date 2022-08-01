@@ -38,8 +38,8 @@ public class ExameControllerRest {
 		List <Exame> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
-	
-	@PostMapping
+
+	@PostMapping()
 	public ResponseEntity<Exame> incluir(@RequestBody Exame obj) {
 		System.out.println(obj);
 		obj=service.create(obj);
