@@ -1,5 +1,6 @@
 package br.pucminas.tcc.model.service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.ProntuarioMedicoRepositoryRest;
+import br.pucminas.tcc.model.entity.Cliente;
+import br.pucminas.tcc.model.entity.Funcionario;
+import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
 import br.pucminas.tcc.model.entity.ProntuarioMedico;
 
 @Service 
@@ -18,6 +22,50 @@ public class ProntuarioMedicoServiceRest {
 		return obj.orElse(null);
 	}
 
+	public List<ProntuarioMedico> findByProntuarioFiltros(Funcionario medico, Cliente cliente, LocalDate dataReg, Boolean filMed, Boolean filCli, Boolean filData) {
+
+		if (filData)
+		{
+			if(filCli)
+			{
+				if(filMed)
+				{
+					Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoAndDataReg(cliente, medico, dataReg);
+					return obj.orElse(null);					
+				}
+				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndDataReg(cliente, dataReg);
+				return obj.orElse(null);				
+			}
+			
+			if(filMed)
+			{
+				Optional<List<ProntuarioMedico>> obj = repository.findByMedicoAndDataReg(medico, dataReg);			
+				return obj.orElse(null);
+			}
+			
+			Optional<List<ProntuarioMedico>> obj = repository.findByDataReg(dataReg);
+			return obj.orElse(null);
+		}
+		
+		if(filMed)
+		{
+			if(filCli)
+			{
+				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedico(cliente, medico);			
+				return obj.orElse(null);			
+			}
+
+			Optional<List<ProntuarioMedico>> obj = repository.findByMedico(medico);			
+			return obj.orElse(null);
+		}
+		
+		if(filCli)
+		{
+			Optional<List<ProntuarioMedico>> obj = repository.findByCliente(cliente);			
+			return obj.orElse(null);			
+		}
+		return (null);	
+	}		
 
 	public List<ProntuarioMedico> findAll() {
 		return repository.findAll();
