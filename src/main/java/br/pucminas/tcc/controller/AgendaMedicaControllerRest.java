@@ -78,8 +78,8 @@ public class AgendaMedicaControllerRest {
 			}
 			if (!"NO".equals(id4))
 			{
-				codigoSituacao = Integer.parseInt(id3);
-				filData=true;
+				codigoSituacao = Integer.parseInt(id4);
+				filSituacao=true;
 			}
 			List <AgendaMedica> obj = service.findByAgendaMedicaFiltros(med, cli, dataReg, codigoSituacao, filMed, filCli, filData, filSituacao);
 			return ResponseEntity.ok().body(obj);

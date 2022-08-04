@@ -45,6 +45,7 @@ public interface AgendaMedicaRepositoryRest extends JpaRepository<AgendaMedica, 
 	Optional<List<AgendaMedica>> findByClienteAndMedicoAndDataRegAndCodigoSituacao(Cliente cliente, Funcionario medico, LocalDate dataReg, Integer codigoSituacao);	
 	
 	Optional<List<AgendaMedica>> findByDataRegAndCodigoSituacao(LocalDate dataReg, Integer codigoSituacao);	
-	
+
+	Optional<List<AgendaMedica>> findByCodigoSituacao(Integer codigoSituacao);		
 	
 }
