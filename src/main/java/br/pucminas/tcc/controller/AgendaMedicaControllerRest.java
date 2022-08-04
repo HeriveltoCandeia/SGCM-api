@@ -27,7 +27,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.entity.ChaveCompostaAgenda;
 import br.pucminas.tcc.model.entity.ChavePesquisa;
+import br.pucminas.tcc.model.entity.Cliente;
 import br.pucminas.tcc.model.entity.Funcionario;
+import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.service.AgendaMedicaServiceRest;
 
 @RestController
@@ -44,38 +46,56 @@ public class AgendaMedicaControllerRest {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	public ResponseEntity<AgendaMedica> finByChaveCompostaAgenda(@PathVariable("id") String chavePesquisa) {
-		ObjectMapper mapper = new ObjectMapper();
-		try {
-			ChavePesquisa t1 = mapper.readValue(chavePesquisa, ChavePesquisa.class);
-			LocalDateTime localDateTime = LocalDateTime.of(t1.getAnoData(),t1.getMesData(), t1.getDiaData(), t1.getHoraData(), t1.getMinutoData(), t1.getSegundoData());
-			ChaveCompostaAgenda chaveComp = new ChaveCompostaAgenda();
-			chaveComp.setCodigoMedicoId(t1.getCodigoMedicoId());
-			chaveComp.setDataAgenda(localDateTime);
-			AgendaMedica obj = service.findByChaveCompostaAgenda(chaveComp);
-			return ResponseEntity.ok().body(obj);
-		} catch (JsonMappingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseEntity.status(404).build();
-		} catch (JsonProcessingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return ResponseEntity.status(404).build();
-		}
-	}
-
 	@GetMapping
 	public ResponseEntity<List<AgendaMedica>> finByAll() {
 		List <AgendaMedica> obj = service.findAll();
 		return ResponseEntity.ok().body(obj);
 	}
+
+	@GetMapping("/{id}/{id2}/{id3}/{id4}")
+	public ResponseEntity<List<AgendaMedica>> finByFiltros(@PathVariable("id") String id, @PathVariable("id2") String id2, @PathVariable("id3") String id3,  @PathVariable("id4") String id4) {
+		ObjectMapper mapper = new ObjectMapper();
+		Funcionario med = new Funcionario();
+		Cliente cli = new Cliente();
+		Boolean filMed=false, filCli=false, filData=false, filSituacao=false;
+		LocalDate dataReg = LocalDate.of(9999,12,31);
+		Integer codigoSituacao=0;
+		try {
+			if (!"NO".equals(id))
+				{
+					med = mapper.readValue(id, Funcionario.class);
+					filMed=true;
+				}
+			if (!"NO".equals(id2))
+			{
+				cli = mapper.readValue(id2, Cliente.class);
+				filCli=true;
+			}
+			if (!"NO".equals(id3))
+			{
+				dataReg = LocalDate.of(Integer.parseInt(id3.substring(4, 8)),Integer.parseInt(id3.substring(2, 4)), Integer.parseInt(id3.substring(0, 2)));
+				filData=true;
+			}
+			if (!"NO".equals(id4))
+			{
+				codigoSituacao = Integer.parseInt(id3);
+				filData=true;
+			}
+			List <AgendaMedica> obj = service.findByAgendaMedicaFiltros(med, cli, dataReg, codigoSituacao, filMed, filCli, filData, filSituacao);
+			return ResponseEntity.ok().body(obj);
+		} catch (JsonProcessingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return ResponseEntity.status(404).build();		
+		}
+
+	}	
 	
 	@PostMapping
 	public ResponseEntity<AgendaMedica> incluir(@RequestBody AgendaMedica obj) {
 		System.out.println(obj);
 		obj=service.create(obj);
-		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{chaveCompostaAgenda}").buildAndExpand(obj.getChaveCompostaAgenda()).toUri(); 
+		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(obj);
 	}
 	

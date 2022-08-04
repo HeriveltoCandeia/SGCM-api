@@ -1,6 +1,7 @@
 package br.pucminas.tcc.model.entity;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -18,8 +19,16 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "AGENDAMEDICA")
 public class AgendaMedica extends AbstractEntity<Long>{
 
-	private ChaveCompostaAgenda chaveCompostaAgenda;
+	@Column(nullable=false)
+	private LocalDateTime dataAgenda;
 	
+	@JsonManagedReference
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "codigo_medico_id")
+	@JsonIgnore
+	private Funcionario medico;
+
 	@JsonManagedReference
 	@NotNull
 	@ManyToOne
@@ -37,12 +46,20 @@ public class AgendaMedica extends AbstractEntity<Long>{
 	@Column(name="dataReg", nullable=false)
 	private LocalDate dataReg;
 	
-	public ChaveCompostaAgenda getChaveCompostaAgenda() {
-		return chaveCompostaAgenda;
+	public LocalDateTime getDataAgenda() {
+		return dataAgenda;
 	}
 
-	public void setChaveCompostaAgenda(ChaveCompostaAgenda chaveCompostaAgenda) {
-		this.chaveCompostaAgenda = chaveCompostaAgenda;
+	public void setDataAgenda(LocalDateTime dataAgenda) {
+		this.dataAgenda = dataAgenda;
+	}
+
+	public Funcionario getMedico() {
+		return medico;
+	}
+
+	public void setMedico(Funcionario medico) {
+		this.medico = medico;
 	}
 
 	public Cliente getCliente() {
