@@ -9,6 +9,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,6 +33,8 @@ import br.pucminas.tcc.model.entity.Cliente;
 import br.pucminas.tcc.model.entity.Funcionario;
 import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.service.AgendaMedicaServiceRest;
+import br.pucminas.tcc.model.service.FuncionarioServiceRest;
+import br.pucminas.tcc.model.service.UsuarioService;
 
 @RestController
 @RequestMapping("/agendasMedicasRest")
@@ -39,6 +43,12 @@ public class AgendaMedicaControllerRest {
 	@Autowired
 	private AgendaMedicaServiceRest service;
 	
+	@Autowired
+	private FuncionarioServiceRest serviceFunc; 
+	
+	@Autowired
+	private UsuarioService serviceUsu;
+
 	@CrossOrigin
 	@GetMapping("/{id}")
 	public ResponseEntity<AgendaMedica> finById(@PathVariable("id") Long id) {
@@ -92,7 +102,29 @@ public class AgendaMedicaControllerRest {
 	}	
 	
 	@PostMapping
-	public ResponseEntity<AgendaMedica> incluir(@RequestBody AgendaMedica obj) {
+	public ResponseEntity<AgendaMedica> incluir(@RequestBody AgendaMedica obj) throws Exception {
+		
+//		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+//		System.out.println("Usuário" + username);
+//		Funcionario func = serviceFunc.findByUsuario(username);
+//		if (func.getCodigoCargo() != 1) //&& func.getCodigoCargo() != 3)
+//		{
+//			//return ResponseEntity.status(404).build();
+//			throw new Exception("Usuário sem permissão");
+//		}
+
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = {1, 3};
+		boolean acesso = serviceUsu.verificaAcessoUsuario(ace);
+		System.out.println(acesso);
+		if (acesso == false) //&& func.getCodigoCargo() != 3)
+		{
+			throw new Exception("Usuário sem permissão");
+		}		
+//      *****************************************************
 		
 		if (obj.getCliente().getId() == 0)
 		{

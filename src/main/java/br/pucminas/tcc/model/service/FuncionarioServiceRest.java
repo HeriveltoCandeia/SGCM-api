@@ -23,6 +23,11 @@ public class FuncionarioServiceRest {
 		Optional<List<Funcionario>> obj = repository.findByCodigoCargo(id);
 		return obj.orElse(null);
 	}	
+
+	public Funcionario findByUsuario(String usuario) {
+		Optional<Funcionario> obj = repository.findByUsuario(usuario);
+		return obj.orElse(null);
+	}		
 	
 	public List<Funcionario> findAll() {
 		return repository.findAll();

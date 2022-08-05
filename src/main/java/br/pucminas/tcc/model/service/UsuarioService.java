@@ -1,6 +1,7 @@
 package br.pucminas.tcc.model.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -16,6 +17,9 @@ public class UsuarioService implements UserDetailsService{
 	@Autowired
 	private FuncionarioRepositoryRest repository;
 	
+	@Autowired
+	private FuncionarioServiceRest service; 
+	
 	@Override
 	public UserDetails loadUserByUsername(String usuarioNome) throws UsernameNotFoundException {
 		Funcionario usuario = repository
@@ -30,4 +34,18 @@ public class UsuarioService implements UserDetailsService{
 					.build();
 	}
 
+	public boolean verificaAcessoUsuario(int[] codigoCargo)
+	{
+		String username = SecurityContextHolder.getContext().getAuthentication().getName();
+		System.out.println("Usuário" + username);
+		Funcionario func = service.findByUsuario(username);
+		for(int i = 0; i < codigoCargo.length; i++)
+		{
+			if (func.getCodigoCargo() == codigoCargo[i])
+			{
+				return true;
+			}
+		}
+		return false;
+	}
 }
