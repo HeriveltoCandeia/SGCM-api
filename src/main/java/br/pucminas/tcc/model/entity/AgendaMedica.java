@@ -30,7 +30,6 @@ public class AgendaMedica extends AbstractEntity<Long>{
 	private Funcionario medico;
 
 	@JsonManagedReference
-	@NotNull
 	@ManyToOne
 	@JoinColumn(name = "codigo_cliente_id")
 	@JsonIgnore

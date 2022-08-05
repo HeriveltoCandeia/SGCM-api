@@ -93,7 +93,11 @@ public class AgendaMedicaControllerRest {
 	
 	@PostMapping
 	public ResponseEntity<AgendaMedica> incluir(@RequestBody AgendaMedica obj) {
-		System.out.println(obj);
+		
+		if (obj.getCliente().getId() == 0)
+		{
+			obj.setCliente(null);
+		}
 		obj=service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(obj);
@@ -101,6 +105,10 @@ public class AgendaMedicaControllerRest {
 	
 	@PutMapping(value="/{id}")
 	public ResponseEntity<AgendaMedica> editar(@PathVariable Long id, @RequestBody AgendaMedica obj){
+		if (obj.getCliente().getId() == 0)
+		{
+			obj.setCliente(null);
+		}
 		AgendaMedica newObj = service.update(id,obj);
 		return ResponseEntity.ok().body(newObj);
 	}

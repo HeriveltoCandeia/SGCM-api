@@ -49,7 +49,6 @@ public class AgendaMedicaServiceRest {
 					Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegAndCodigoSituacao(medico, dataReg, codigoSituacao);			
 					return obj.orElse(null);
 				}
-				
 				Optional<List<AgendaMedica>> obj = repository.findByDataRegAndCodigoSituacao(dataReg, codigoSituacao);
 				return obj.orElse(null);
 			}
