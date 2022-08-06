@@ -22,6 +22,7 @@ import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
 import br.pucminas.tcc.model.entity.ProntuarioMedico;
 import br.pucminas.tcc.model.service.ProntuarioMedicamentoServiceRest;
 import br.pucminas.tcc.model.service.ProntuarioMedicoServiceRest;
+import br.pucminas.tcc.model.service.UsuarioService;
 
 @RestController
 @RequestMapping("/prontuariosMedicamentosRest")
@@ -32,6 +33,9 @@ public class ProntuarioMedicamentoControllerRest {
 
 	@Autowired
 	private ProntuarioMedicoServiceRest service2;
+
+	@Autowired
+	private UsuarioService serviceUsu;	
 	
 	@GetMapping("/{id}")
 	public ResponseEntity<ProntuarioMedicamento> finById(@PathVariable("id") Long id) {
@@ -57,7 +61,15 @@ public class ProntuarioMedicamentoControllerRest {
 	}
 	
 	@PostMapping
-	public ResponseEntity<ProntuarioMedicamento> incluir(@RequestBody ProntuarioMedicamento obj) {
+	public ResponseEntity<ProntuarioMedicamento> incluir(@RequestBody ProntuarioMedicamento obj) throws Exception {
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+		
 		System.out.println(obj);
 		obj=service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
@@ -65,13 +77,28 @@ public class ProntuarioMedicamentoControllerRest {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<ProntuarioMedicamento> editar(@PathVariable Long id, @RequestBody ProntuarioMedicamento obj){
+	public ResponseEntity<ProntuarioMedicamento> editar(@PathVariable Long id, @RequestBody ProntuarioMedicamento obj) throws Exception{
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************		
 		ProntuarioMedicamento newObj = service.update(id,obj);
 		return ResponseEntity.ok().body(newObj);
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> excluir(@PathVariable Long id){
+	public ResponseEntity<Void> excluir(@PathVariable Long id) throws Exception{
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+		
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}

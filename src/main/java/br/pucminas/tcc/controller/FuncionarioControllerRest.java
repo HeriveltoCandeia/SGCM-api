@@ -21,6 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.pucminas.tcc.model.entity.Funcionario;
 import br.pucminas.tcc.model.service.FuncionarioServiceRest;
+import br.pucminas.tcc.model.service.UsuarioService;
 import br.pucminas.tcc.util.erros.UsuarioCadastradoException;
 
 @RestController
@@ -29,6 +30,9 @@ public class FuncionarioControllerRest {
 	
 	@Autowired
 	private FuncionarioServiceRest service;
+
+	@Autowired
+	private UsuarioService serviceUsu;		
 	
 	@CrossOrigin
 	@GetMapping("/{id}")
@@ -36,6 +40,14 @@ public class FuncionarioControllerRest {
 		Funcionario obj = service.findById(id);
 		return ResponseEntity.ok().body(obj);
 	}
+
+	@CrossOrigin
+	@GetMapping("/usuario/{id}")
+	public ResponseEntity<Funcionario> finByUsuario(@PathVariable("id") String id) {
+		Funcionario obj = service.findByUsuario(id);
+		return ResponseEntity.ok().body(obj);
+	}
+
 
 	@CrossOrigin
 	@GetMapping
@@ -54,7 +66,15 @@ public class FuncionarioControllerRest {
 	
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<Funcionario> incluir(@RequestBody Funcionario obj) {
+	public ResponseEntity<Funcionario> incluir(@RequestBody Funcionario obj) throws Exception {
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1 };
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+		
 		System.out.println("Funcionário");
 		System.out.println(obj.getNome());
 		System.out.println(obj.getCpf());		
@@ -74,14 +94,29 @@ public class FuncionarioControllerRest {
 	
 	@CrossOrigin
 	@PutMapping(value="/{id}")
-	public ResponseEntity<Funcionario> editar(@PathVariable Long id, @RequestBody Funcionario obj){
+	public ResponseEntity<Funcionario> editar(@PathVariable Long id, @RequestBody Funcionario obj) throws Exception{
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1 };
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+		
 		Funcionario newObj = service.update(id,obj);
 		return ResponseEntity.ok().body(newObj);
 	}
 	
 	@CrossOrigin
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> excluir(@PathVariable Long id){
+	public ResponseEntity<Void> excluir(@PathVariable Long id) throws Exception{
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1 };
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
