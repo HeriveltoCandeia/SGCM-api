@@ -34,7 +34,7 @@ public class UsuarioService implements UserDetailsService{
 					.build();
 	}
 
-	public boolean verificaAcessoUsuario(int[] codigoCargo)
+	public Long verificaAcessoUsuario(int[] codigoCargo) throws Exception
 	{
 		String username = SecurityContextHolder.getContext().getAuthentication().getName();
 		System.out.println("Usuário" + username);
@@ -43,9 +43,11 @@ public class UsuarioService implements UserDetailsService{
 		{
 			if (func.getCodigoCargo() == codigoCargo[i])
 			{
-				return true;
+				return func.getCodigoCargo();
 			}
 		}
-		return false;
+		throw new Exception("Usuário sem permissão");
+
+//		return false;
 	}
 }

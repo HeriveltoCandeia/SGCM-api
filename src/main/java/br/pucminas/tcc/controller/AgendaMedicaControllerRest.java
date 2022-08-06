@@ -1,37 +1,28 @@
 package br.pucminas.tcc.controller;
 
-import java.util.List;
 import java.net.URI;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-
-import javax.validation.Valid;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.pucminas.tcc.model.entity.AgendaMedica;
-import br.pucminas.tcc.model.entity.ChaveCompostaAgenda;
-import br.pucminas.tcc.model.entity.ChavePesquisa;
 import br.pucminas.tcc.model.entity.Cliente;
 import br.pucminas.tcc.model.entity.Funcionario;
-import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.service.AgendaMedicaServiceRest;
 import br.pucminas.tcc.model.service.FuncionarioServiceRest;
 import br.pucminas.tcc.model.service.UsuarioService;
@@ -104,26 +95,12 @@ public class AgendaMedicaControllerRest {
 	@PostMapping
 	public ResponseEntity<AgendaMedica> incluir(@RequestBody AgendaMedica obj) throws Exception {
 		
-//		String username = SecurityContextHolder.getContext().getAuthentication().getName();
-//		System.out.println("Usuário" + username);
-//		Funcionario func = serviceFunc.findByUsuario(username);
-//		if (func.getCodigoCargo() != 1) //&& func.getCodigoCargo() != 3)
-//		{
-//			//return ResponseEntity.status(404).build();
-//			throw new Exception("Usuário sem permissão");
-//		}
-
 //      *****************************************************	
 //		Verifica os acessos para o Cargo do usuário logado.
 //      *****************************************************
 //		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
-		int[] ace = {1, 3};
-		boolean acesso = serviceUsu.verificaAcessoUsuario(ace);
-		System.out.println(acesso);
-		if (acesso == false) //&& func.getCodigoCargo() != 3)
-		{
-			throw new Exception("Usuário sem permissão");
-		}		
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
 //      *****************************************************
 		
 		if (obj.getCliente().getId() == 0)
@@ -136,7 +113,8 @@ public class AgendaMedicaControllerRest {
 	}
 	
 	@PutMapping(value="/{id}")
-	public ResponseEntity<AgendaMedica> editar(@PathVariable Long id, @RequestBody AgendaMedica obj){
+	public ResponseEntity<AgendaMedica> editar(@PathVariable Long id, @RequestBody AgendaMedica obj) throws Exception{
+
 		if (obj.getCliente().getId() == 0)
 		{
 			obj.setCliente(null);
@@ -146,7 +124,15 @@ public class AgendaMedicaControllerRest {
 	}
 	
 	@DeleteMapping(value="/{id}")
-	public ResponseEntity<Void> excluir(@PathVariable Long id){
+	public ResponseEntity<Void> excluir(@PathVariable Long id) throws Exception{
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+
 		service.delete(id);
 		return ResponseEntity.noContent().build();
 	}
