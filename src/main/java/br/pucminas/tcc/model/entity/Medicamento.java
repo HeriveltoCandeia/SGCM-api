@@ -28,41 +28,55 @@ public class Medicamento extends AbstractEntity<Long>{
 
 @NotBlank
 @Size(min=3, max=30)
-@Column(name="descricao", nullable=false, unique=true, length=30)
-private String descricao;
+@Column(name="nomeFabrica", nullable=false, unique=true, length=30)
+private String nomeFabrica;
+
+@NotBlank
+@Size(min=3, max=30)
+@Column(name="nomeGenerico", nullable=false, length=30)
+private String nomeGenerico;
+
+@NotBlank
+@Size(min=3, max=30)
+@Column(name="nomeFabricante", nullable=false, length=30)
+private String nomeFabricante;
+
 
 @JsonIgnore
 @JsonBackReference	
 @OneToMany(mappedBy = "medicamento")
 private List<ProntuarioMedicamento> prontuarioMedicamentos;
 
-//@JoinTable(name="RECEITA_MEDICAMENTO", 
-//joinColumns= {@JoinColumn(name="RECEITA_ID")},
-//inverseJoinColumns= {@JoinColumn(name="MEDICAMENTO_ID")})
 
-//@OneToMany(mappedBy = "receita")
-//Set<ReceitasMedicamentosReceita> ratings;
-
-
-//@ManyToMany(mappedBy="medicamentosReceita")//cascade = CascadeType.ALL) 
-//private List<Receita> receitas; 
-
-//public List<Receita> getReceitas()
-//{ 
-//  return receitas; 
-//} 
-//
-//public void setReceitas(List<Receita> receitas) 
-//{ 
-//  this.receitas = receitas; 
-//} 
-
-public String getDescricao() 
-{ 
-  return descricao; 
-} 
-public void setDescricao(String descricao) 
-{ 
-  this.descricao = descricao; 
+public String getNomeFabrica() {
+	return nomeFabrica;
 }
+
+
+public void setNomeFabrica(String nomeFabrica) {
+	this.nomeFabrica = nomeFabrica;
+}
+
+
+public String getNomeGenerico() {
+	return nomeGenerico;
+}
+
+
+public void setNomeGenerico(String nomeGenerico) {
+	this.nomeGenerico = nomeGenerico;
+}
+
+
+public String getNomeFabricante() {
+	return nomeFabricante;
+}
+
+
+public void setNomeFabricante(String nomeFabricante) {
+	this.nomeFabricante = nomeFabricante;
+}
+
+
+
 }

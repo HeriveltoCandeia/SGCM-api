@@ -41,7 +41,6 @@ public class MedicamentoControllerRest {
 	
 	@PostMapping
 	public ResponseEntity<Medicamento> incluir(@RequestBody Medicamento obj) {
-		
 		obj=service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(obj);

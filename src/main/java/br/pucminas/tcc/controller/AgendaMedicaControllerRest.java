@@ -2,6 +2,7 @@ package br.pucminas.tcc.controller;
 
 import java.net.URI;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,6 +62,8 @@ public class AgendaMedicaControllerRest {
 		Boolean filMed=false, filCli=false, filData=false, filSituacao=false;
 		LocalDate dataReg = LocalDate.of(9999,12,31);
 		Integer codigoSituacao=0;
+		System.out.println("Data Reg");
+		System.out.println(id3);
 		try {
 			if (!"NO".equals(id))
 				{
@@ -107,6 +110,19 @@ public class AgendaMedicaControllerRest {
 		{
 			obj.setCliente(null);
 		}
+/*		for(int i = 8;i<18;i++)
+		{
+			for (int j = 0;  j<60; j++)
+			{
+				LocalDateTime dT = LocalDateTime.of(obj.getDataAgenda().getYear(),obj.getDataAgenda().getMonth(),obj.getDataAgenda().getDayOfMonth(),i,j);
+				System.out.println(dT);
+				obj.setId(null);
+				obj.setDataAgenda(dT);
+				obj=service.create(obj);
+				j=j+20;
+			}
+			i++;
+		}*/
 		obj=service.create(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri(); 
 		return ResponseEntity.created(uri).body(obj);

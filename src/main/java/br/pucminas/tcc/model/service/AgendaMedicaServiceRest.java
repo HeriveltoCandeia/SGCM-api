@@ -29,6 +29,9 @@ public class AgendaMedicaServiceRest {
 	
 	public List<AgendaMedica> findByAgendaMedicaFiltros(Funcionario medico, Cliente cliente, LocalDate dataReg, Integer codigoSituacao, Boolean filMed, Boolean filCli, Boolean filData, Boolean filSituacao) {
 
+		System.out.println(dataReg);
+		System.out.println(filData);
+		
 		if(filSituacao)
 		{
 			if (filData)

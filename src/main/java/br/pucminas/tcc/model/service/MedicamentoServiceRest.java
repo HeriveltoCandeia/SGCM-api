@@ -29,7 +29,9 @@ public class MedicamentoServiceRest {
 
 	public Medicamento update(Long id, Medicamento obj) {
 		Medicamento  objA  = findById(id);
-		objA.setDescricao(obj.getDescricao());
+		objA.setNomeFabrica(obj.getNomeFabrica());
+		objA.setNomeGenerico(obj.getNomeGenerico());
+		objA.setNomeFabricante(obj.getNomeFabricante());
 		return repository.save(objA);
 	}
 
