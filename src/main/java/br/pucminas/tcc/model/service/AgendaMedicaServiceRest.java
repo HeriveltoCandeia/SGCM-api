@@ -40,19 +40,19 @@ public class AgendaMedicaServiceRest {
 				{
 					if(filMed)
 					{
-						Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegAndCodigoSituacao(cliente, medico, dataReg, codigoSituacao);
+						Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, medico, dataReg, codigoSituacao);
 						return obj.orElse(null);					
 					}
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegAndCodigoSituacao(cliente, dataReg, codigoSituacao);
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, dataReg, codigoSituacao);
 					return obj.orElse(null);				
 				}
 				
 				if(filMed)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegAndCodigoSituacao(medico, dataReg, codigoSituacao);			
+					Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(medico, dataReg, codigoSituacao);			
 					return obj.orElse(null);
 				}
-				Optional<List<AgendaMedica>> obj = repository.findByDataRegAndCodigoSituacao(dataReg, codigoSituacao);
+				Optional<List<AgendaMedica>> obj = repository.findByDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(dataReg, codigoSituacao);
 				return obj.orElse(null);
 			}
 			
@@ -60,21 +60,21 @@ public class AgendaMedicaServiceRest {
 			{
 				if(filCli)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndCodigoSituacao(cliente, medico, codigoSituacao);			
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, medico, codigoSituacao);			
 					return obj.orElse(null);			
 				}
 	
-				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndCodigoSituacao(medico, codigoSituacao);			
+				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(medico, codigoSituacao);			
 				return obj.orElse(null);
 			}
 			
 			if(filCli)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndCodigoSituacao(cliente, codigoSituacao);			
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, codigoSituacao);			
 				return obj.orElse(null);			
 			}
 
-			Optional<List<AgendaMedica>> obj = repository.findByCodigoSituacao(codigoSituacao);			
+			Optional<List<AgendaMedica>> obj = repository.findByCodigoSituacaoOrderByDataRegDescDataAgendaAsc(codigoSituacao);			
 			return obj.orElse(null);						
 		}
 		
@@ -84,20 +84,20 @@ public class AgendaMedicaServiceRest {
 			{
 				if(filMed)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataReg(cliente, medico, dataReg);
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegOrderByDataRegDescDataAgendaAsc(cliente, medico, dataReg);
 					return obj.orElse(null);					
 				}
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataReg(cliente, dataReg);
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegOrderByDataRegDescDataAgendaAsc(cliente, dataReg);
 				return obj.orElse(null);				
 			}
 			
 			if(filMed)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataReg(medico, dataReg);			
+				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegOrderByDataRegDescDataAgendaAsc(medico, dataReg);			
 				return obj.orElse(null);
 			}
 			
-			Optional<List<AgendaMedica>> obj = repository.findByDataReg(dataReg);
+			Optional<List<AgendaMedica>> obj = repository.findByDataRegOrderByDataRegDescDataAgendaAsc(dataReg);
 			return obj.orElse(null);
 		}
 		
@@ -105,17 +105,17 @@ public class AgendaMedicaServiceRest {
 		{
 			if(filCli)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedico(cliente, medico);			
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoOrderByDataRegDescDataAgendaAsc(cliente, medico);			
 				return obj.orElse(null);			
 			}
 
-			Optional<List<AgendaMedica>> obj = repository.findByMedico(medico);			
+			Optional<List<AgendaMedica>> obj = repository.findByMedicoOrderByDataRegDescDataAgendaAsc(medico);			
 			return obj.orElse(null);
 		}
 		
 		if(filCli)
 		{
-			Optional<List<AgendaMedica>> obj = repository.findByCliente(cliente);			
+			Optional<List<AgendaMedica>> obj = repository.findByClienteOrderByDataRegDescDataAgendaAsc(cliente);			
 			return obj.orElse(null);			
 		}
 		return (null);	

@@ -15,18 +15,18 @@ import br.pucminas.tcc.model.entity.ProntuarioMedico;
 @Repository
 public interface ProntuarioMedicoRepositoryRest extends JpaRepository<ProntuarioMedico, Long>{
 
-	Optional<List<ProntuarioMedico>> findByMedico(Funcionario medico);	
+	Optional<List<ProntuarioMedico>> findByMedicoOrderByDataRegDescDataTimeProntuarioAsc(Funcionario medico);	
 
-	Optional<List<ProntuarioMedico>> findByMedicoAndDataReg(Funcionario medico, LocalDate dataReg);	
+	Optional<List<ProntuarioMedico>> findByMedicoAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(Funcionario medico, LocalDate dataReg);	
 	
-	Optional<List<ProntuarioMedico>> findByCliente(Cliente cliente);	
+	Optional<List<ProntuarioMedico>> findByClienteOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente);	
 
-	Optional<List<ProntuarioMedico>> findByClienteAndDataReg(Cliente cliente, LocalDate dataReg);	
+	Optional<List<ProntuarioMedico>> findByClienteAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, LocalDate dataReg);	
 
-	Optional<List<ProntuarioMedico>> findByClienteAndMedico(Cliente cliente, Funcionario medico);	
+	Optional<List<ProntuarioMedico>> findByClienteAndMedicoOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Funcionario medico);	
 
-	Optional<List<ProntuarioMedico>> findByClienteAndMedicoAndDataReg(Cliente cliente, Funcionario medico, LocalDate dataReg);	
+	Optional<List<ProntuarioMedico>> findByClienteAndMedicoAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Funcionario medico, LocalDate dataReg);	
 	
-	Optional<List<ProntuarioMedico>> findByDataReg(LocalDate dataReg);	
+	Optional<List<ProntuarioMedico>> findByDataRegOrderByDataRegDescDataTimeProntuarioAsc(LocalDate dataReg);	
 	
 }

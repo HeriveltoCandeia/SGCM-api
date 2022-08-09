@@ -30,20 +30,20 @@ public class ProntuarioMedicoServiceRest {
 			{
 				if(filMed)
 				{
-					Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoAndDataReg(cliente, medico, dataReg);
+					Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(cliente, medico, dataReg);
 					return obj.orElse(null);					
 				}
-				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndDataReg(cliente, dataReg);
+				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(cliente, dataReg);
 				return obj.orElse(null);				
 			}
 			
 			if(filMed)
 			{
-				Optional<List<ProntuarioMedico>> obj = repository.findByMedicoAndDataReg(medico, dataReg);			
+				Optional<List<ProntuarioMedico>> obj = repository.findByMedicoAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(medico, dataReg);			
 				return obj.orElse(null);
 			}
 			
-			Optional<List<ProntuarioMedico>> obj = repository.findByDataReg(dataReg);
+			Optional<List<ProntuarioMedico>> obj = repository.findByDataRegOrderByDataRegDescDataTimeProntuarioAsc(dataReg);
 			return obj.orElse(null);
 		}
 		
@@ -51,17 +51,17 @@ public class ProntuarioMedicoServiceRest {
 		{
 			if(filCli)
 			{
-				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedico(cliente, medico);			
+				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoOrderByDataRegDescDataTimeProntuarioAsc(cliente, medico);			
 				return obj.orElse(null);			
 			}
 
-			Optional<List<ProntuarioMedico>> obj = repository.findByMedico(medico);			
+			Optional<List<ProntuarioMedico>> obj = repository.findByMedicoOrderByDataRegDescDataTimeProntuarioAsc(medico);			
 			return obj.orElse(null);
 		}
 		
 		if(filCli)
 		{
-			Optional<List<ProntuarioMedico>> obj = repository.findByCliente(cliente);			
+			Optional<List<ProntuarioMedico>> obj = repository.findByClienteOrderByDataRegDescDataTimeProntuarioAsc(cliente);			
 			return obj.orElse(null);			
 		}
 		return (null);	
