@@ -1,19 +1,32 @@
 package br.pucminas.tcc;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.entity.Cliente;
 import br.pucminas.tcc.model.entity.Exame;
 import br.pucminas.tcc.model.entity.Funcionario;
 import br.pucminas.tcc.model.entity.Medicamento;
+import br.pucminas.tcc.model.entity.ProntuarioExame;
+import br.pucminas.tcc.model.entity.ProntuarioMedicamento;
+import br.pucminas.tcc.model.entity.ProntuarioMedico;
 import br.pucminas.tcc.model.entity.TipoExame;
+import br.pucminas.tcc.model.service.AgendaMedicaServiceRest;
 import br.pucminas.tcc.model.service.ClienteServiceRest;
 import br.pucminas.tcc.model.service.ExameServiceRest;
 import br.pucminas.tcc.model.service.FuncionarioServiceRest;
 import br.pucminas.tcc.model.service.MedicamentoServiceRest;
+import br.pucminas.tcc.model.service.ProntuarioExameServiceRest;
+import br.pucminas.tcc.model.service.ProntuarioMedicamentoServiceRest;
+import br.pucminas.tcc.model.service.ProntuarioMedicoServiceRest;
 import br.pucminas.tcc.model.service.TipoExameServiceRest;
 
 @SpringBootApplication
@@ -33,6 +46,18 @@ public class JavaSpringApplication implements CommandLineRunner{
 
 	@Autowired
 	private ClienteServiceRest serviceCli;
+
+	@Autowired
+	private AgendaMedicaServiceRest serviceAgenda;	
+
+	@Autowired
+	private ProntuarioMedicoServiceRest serviceProntuario;	
+
+	@Autowired
+	private ProntuarioMedicamentoServiceRest serviceProntuarioMedicamento;	
+
+	@Autowired
+	private ProntuarioExameServiceRest serviceProntuarioExame;	
 	
 	public static void main(String[] args) {
 		SpringApplication.run(JavaSpringApplication.class, args);
@@ -41,11 +66,20 @@ public class JavaSpringApplication implements CommandLineRunner{
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stub
-//		carregarTipoExame();
-//		carregarUsuarios();
-//		carregarClientes();		
-//		carregarExame();		
-//		carregarMedicamento();	
+		List<TipoExame> listaTipoExame = service.findAll();
+		if (!listaTipoExame.isEmpty() )
+		{
+			return;
+		}
+		carregarTipoExame();
+		carregarUsuarios();
+		carregarClientes();		
+		carregarExame();		
+		carregarMedicamento();
+		carregarAgenda();
+		carregarProntuario();
+		carregarProntuarioMedicamento();
+		carregarProntuarioExame();
 	}
 	
 	private void carregarTipoExame() {
@@ -62,7 +96,7 @@ public class JavaSpringApplication implements CommandLineRunner{
 
 	private void carregarExame() {
 		Exame exame = new Exame();
-		exame.setDescricao("Hemograma");
+		exame.setDescricao("Glicose");
 		TipoExame tipoExame = new TipoExame();
 		tipoExame.setId(1L);
 		exame.setTipoExame(tipoExame);
@@ -147,6 +181,114 @@ public class JavaSpringApplication implements CommandLineRunner{
 		cliente.setConvenioMedico("cassi");
 		cliente.setNumeroCarteirinha("12345678910");
 		serviceCli.create(cliente);
+		
+	}
+
+	private void carregarAgenda() {
+		AgendaMedica agendaMedica = new AgendaMedica();
+		Funcionario med = new Funcionario();
+		LocalDate dtAtu = LocalDate.of(2022, 8, 8);
+		LocalTime hrAtu = LocalTime.of(8, 30);
+		LocalDateTime dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
+		med.setId(3L);
+		agendaMedica.setMedico(med);
+		agendaMedica.setCodigoSituacao(1);
+		agendaMedica.setCodigoTipo(1);
+		agendaMedica.setDataReg(dtAtu);
+		agendaMedica.setDataAgenda(dtTimeAtu);
+		serviceAgenda.create(agendaMedica);		
+
+		agendaMedica.setMedico(med);
+		agendaMedica.setCodigoSituacao(1);
+		agendaMedica.setCodigoTipo(1);
+		agendaMedica.setDataReg(dtAtu);
+		hrAtu = LocalTime.of(9, 00);		
+		dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
+		agendaMedica.setDataAgenda(dtTimeAtu);
+		serviceAgenda.create(agendaMedica);				
+	}
+
+	private void carregarProntuario() {
+		ProntuarioMedico prontuarioMedico = new ProntuarioMedico();
+		Funcionario med = new Funcionario();
+		Cliente cli = new Cliente();
+		LocalDate dtAtu = LocalDate.of(2022, 8, 8);
+		LocalTime hrAtu = LocalTime.of(8, 30);
+		LocalDateTime dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
+		med.setId(3L);
+		cli.setId(4L);
+		prontuarioMedico.setMedico(med);
+		prontuarioMedico.setCodigoSituacao(1);
+		prontuarioMedico.setCliente(cli);
+		prontuarioMedico.setDataReg(dtAtu);
+		prontuarioMedico.setDataTimeProntuario(dtTimeAtu);
+		serviceProntuario.create(prontuarioMedico);		
+
+		prontuarioMedico.setMedico(med);
+		prontuarioMedico.setCodigoSituacao(1);
+		cli.setId(5L);
+		prontuarioMedico.setCliente(cli);
+		prontuarioMedico.setDataReg(dtAtu);
+		hrAtu = LocalTime.of(9, 00);		
+		dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
+		prontuarioMedico.setDataTimeProntuario(dtTimeAtu);
+		serviceProntuario.create(prontuarioMedico);				
+	}
+
+	
+	private void carregarProntuarioMedicamento() {
+		ProntuarioMedico prontuarioMedico = new ProntuarioMedico();
+		ProntuarioMedicamento prontuarioMedicamento = new ProntuarioMedicamento();
+		Medicamento medicamento = new Medicamento();
+		medicamento.setId(1L);
+		prontuarioMedico.setId(1L);
+		prontuarioMedicamento.setProntuarioMedico(prontuarioMedico);
+		prontuarioMedicamento.setMedicamento(medicamento);
+		prontuarioMedicamento.setOrientacoes("3 x ao dia");
+		serviceProntuarioMedicamento.create(prontuarioMedicamento);		
+
+		medicamento.setId(2L);
+		prontuarioMedico.setId(1L);
+		prontuarioMedicamento.setProntuarioMedico(prontuarioMedico);
+		prontuarioMedicamento.setMedicamento(medicamento);
+		prontuarioMedicamento.setOrientacoes("1 x ao dia");
+		serviceProntuarioMedicamento.create(prontuarioMedicamento);		
+
+		medicamento.setId(2L);
+		prontuarioMedico.setId(1L);
+		prontuarioMedicamento.setProntuarioMedico(prontuarioMedico);
+		prontuarioMedicamento.setMedicamento(medicamento);
+		prontuarioMedicamento.setOrientacoes("3 x ao dia");
+		serviceProntuarioMedicamento.create(prontuarioMedicamento);		
+		
+	}
+
+	private void carregarProntuarioExame() {
+		ProntuarioMedico prontuarioMedico = new ProntuarioMedico();
+		ProntuarioExame prontuarioExame = new ProntuarioExame();
+		Exame exame = new Exame();
+		exame.setId(1L);
+		prontuarioMedico.setId(1L);
+		prontuarioExame.setProntuarioMedico(prontuarioMedico);
+		prontuarioExame.setExame(exame);
+		prontuarioExame.setOrientacoes("Jejum");
+		prontuarioExame.setCodigoSituacao(1);		
+		serviceProntuarioExame.create(prontuarioExame);		
+
+		exame.setId(2L);
+		prontuarioExame.setId(1L);
+		prontuarioExame.setProntuarioMedico(prontuarioMedico);
+		prontuarioExame.setExame(exame);
+		prontuarioExame.setCodigoSituacao(1);
+		serviceProntuarioExame.create(prontuarioExame);		
+
+		exame.setId(2L);
+		prontuarioExame.setId(1L);
+		prontuarioExame.setProntuarioMedico(prontuarioMedico);
+		prontuarioExame.setExame(exame);
+		prontuarioExame.setOrientacoes("Jejum");
+		prontuarioExame.setCodigoSituacao(1);
+		serviceProntuarioExame.create(prontuarioExame);		
 		
 	}
 	
