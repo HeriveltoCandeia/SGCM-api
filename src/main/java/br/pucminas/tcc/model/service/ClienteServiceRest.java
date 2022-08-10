@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.ClienteRepositoryRest;
@@ -41,7 +42,12 @@ public class ClienteServiceRest {
 
 	public void delete(Long id) {
 		findById(id);
-		repository.deleteById(id);
+		try {
+			repository.deleteById(id);
+		} catch	(DataIntegrityViolationException e)
+		{
+			throw new br.pucminas.tcc.util.erros.DataIntegrityViolationException("Cliente não pode ser excluído. Já vinculado à Prontuários/Agendas.", null);
+		}		
 	}
 
 }
