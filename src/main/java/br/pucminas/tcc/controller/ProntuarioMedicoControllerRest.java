@@ -46,13 +46,14 @@ public class ProntuarioMedicoControllerRest {
 		return ResponseEntity.ok().body(obj);
 	}
 	
-	@GetMapping("/{id}/{id2}/{id3}")
-	public ResponseEntity<List<ProntuarioMedico>> finByFiltros(@PathVariable("id") String id, @PathVariable("id2") String id2, @PathVariable("id3") String id3) {
+	@GetMapping("/{id}/{id2}/{id3}/{id4}")
+	public ResponseEntity<List<ProntuarioMedico>> finByFiltros(@PathVariable("id") String id, @PathVariable("id2") String id2, @PathVariable("id3") String id3,  @PathVariable("id4") String id4) {
 		ObjectMapper mapper = new ObjectMapper();
 		Funcionario med = new Funcionario();
 		Cliente cli = new Cliente();
-		Boolean filMed=false, filCli=false, filData=false;
+		Boolean filMed=false, filCli=false, filData=false, filSituacao=false;
 		LocalDate dataReg = LocalDate.of(9999,12,31);
+		Integer codigoSituacao=0;		
 		try {
 			if (!"NO".equals(id))
 				{
@@ -69,7 +70,13 @@ public class ProntuarioMedicoControllerRest {
 				dataReg = LocalDate.of(Integer.parseInt(id3.substring(4, 8)),Integer.parseInt(id3.substring(2, 4)), Integer.parseInt(id3.substring(0, 2)));
 				filData=true;
 			}
-			List <ProntuarioMedico> obj = service.findByProntuarioFiltros(med, cli, dataReg, filMed, filCli, filData);
+			if (!"NO".equals(id4))
+			{
+				codigoSituacao = Integer.parseInt(id4);
+				filSituacao=true;
+			}
+			
+			List <ProntuarioMedico> obj = service.findByProntuarioFiltros(med, cli, dataReg, codigoSituacao, filMed, filCli, filData, filSituacao);
 			return ResponseEntity.ok().body(obj);
 		} catch (JsonProcessingException e) {
 			// TODO Auto-generated catch block

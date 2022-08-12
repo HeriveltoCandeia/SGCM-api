@@ -28,5 +28,23 @@ public interface ProntuarioMedicoRepositoryRest extends JpaRepository<Prontuario
 	Optional<List<ProntuarioMedico>> findByClienteAndMedicoAndDataRegOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Funcionario medico, LocalDate dataReg);	
 	
 	Optional<List<ProntuarioMedico>> findByDataRegOrderByDataRegDescDataTimeProntuarioAsc(LocalDate dataReg);	
+
+	//filtro com o código da Situação
+
+	Optional<List<ProntuarioMedico>> findByMedicoAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Funcionario medico, Integer codigoSituacao);	
+
+	Optional<List<ProntuarioMedico>> findByMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Funcionario medico, LocalDate dataReg, Integer codigoSituacao);	
+	
+	Optional<List<ProntuarioMedico>> findByClienteAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Integer codigoSituacao);	
+
+	Optional<List<ProntuarioMedico>> findByClienteAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, LocalDate dataReg, Integer codigoSituacao);	
+
+	Optional<List<ProntuarioMedico>> findByClienteAndMedicoAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Funcionario medico, Integer codigoSituacao);	
+
+	Optional<List<ProntuarioMedico>> findByClienteAndMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Cliente cliente, Funcionario medico, LocalDate dataReg, Integer codigoSituacao);	
+	
+	Optional<List<ProntuarioMedico>> findByDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(LocalDate dataReg, Integer codigoSituacao);	
+
+	Optional<List<ProntuarioMedico>> findByCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(Integer codigoSituacao);	
 	
 }

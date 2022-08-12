@@ -22,8 +22,57 @@ public class ProntuarioMedicoServiceRest {
 		return obj.orElse(null);
 	}
 
-	public List<ProntuarioMedico> findByProntuarioFiltros(Funcionario medico, Cliente cliente, LocalDate dataReg, Boolean filMed, Boolean filCli, Boolean filData) {
+	public List<ProntuarioMedico> findByProntuarioFiltros(Funcionario medico, Cliente cliente, LocalDate dataReg, Integer codigoSituacao, Boolean filMed, Boolean filCli, Boolean filData, Boolean filSituacao) {
 
+		if (filSituacao)
+		{
+			if (filData)
+			{
+				if(filCli)
+				{
+					if(filMed)
+					{
+						Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(cliente, medico, dataReg, codigoSituacao);
+						return obj.orElse(null);					
+					}
+					Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(cliente, dataReg, codigoSituacao);
+					return obj.orElse(null);				
+				}
+				
+				if(filMed)
+				{
+					Optional<List<ProntuarioMedico>> obj = repository.findByMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(medico, dataReg, codigoSituacao);			
+					return obj.orElse(null);
+				}
+				
+				Optional<List<ProntuarioMedico>> obj = repository.findByDataRegAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(dataReg, codigoSituacao);
+				return obj.orElse(null);
+			}
+			
+			if(filMed)
+			{
+				if(filCli)
+				{
+					Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndMedicoAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(cliente, medico, codigoSituacao);			
+					return obj.orElse(null);			
+				}
+	
+				Optional<List<ProntuarioMedico>> obj = repository.findByMedicoAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(medico, codigoSituacao);			
+				return obj.orElse(null);
+			}
+			
+			if(filCli)
+			{
+				Optional<List<ProntuarioMedico>> obj = repository.findByClienteAndCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(cliente, codigoSituacao);			
+				return obj.orElse(null);			
+			}
+
+			Optional<List<ProntuarioMedico>> obj = repository.findByCodigoSituacaoOrderByDataRegDescDataTimeProntuarioAsc(codigoSituacao);			
+			return obj.orElse(null);			
+		}
+		
+		
+		
 		if (filData)
 		{
 			if(filCli)
