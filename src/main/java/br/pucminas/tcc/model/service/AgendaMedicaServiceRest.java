@@ -1,6 +1,8 @@
 package br.pucminas.tcc.model.service;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -121,8 +123,64 @@ public class AgendaMedicaServiceRest {
 		return (null);	
 	}		
 	
+	public void createLote(Funcionario medico, LocalDate dataInicio, LocalDate dataFim, Integer recorrencia )
+	{
+		medico = new Funcionario();
+		medico.setId(3L);
+		dataInicio = LocalDate.of(2022, 8, 14);
+		dataFim = LocalDate.of(2022, 8, 15);
+
+		LocalTime horaInicio = LocalTime.of(8, 0);
+		LocalTime horaFim = LocalTime.of(17, 0);
+
+		LocalDateTime dataHoraInicio = LocalDateTime.of(dataInicio, horaInicio);
+		LocalDateTime dataHoraFim = LocalDateTime.of(dataFim, horaFim);
+		
+		LocalDate dataReg = dataInicio;
+		LocalDateTime dataAgenda = dataHoraInicio;
+		int duplicados = 0;
+		for(int i=0;dataAgenda.compareTo(dataHoraFim)<0 && i<35;i++)
+		{
+			AgendaMedica agendaMedica = new AgendaMedica();
+			agendaMedica.setCodigoSituacao(1);
+			agendaMedica.setCodigoTipo(1);
+			agendaMedica.setMedico(medico);
+			agendaMedica.setDataReg(dataReg);
+			agendaMedica.setDataAgenda(dataAgenda);
+			try
+			{
+				repository.save(agendaMedica);
+			}
+			catch(Exception e)
+			{
+				System.out.println(e);
+				duplicados++;
+			}
+
+			if ((dataAgenda.getMinute() + recorrencia)<60)
+			{
+				System.out.println("Dentro do IF");
+				System.out.println(dataAgenda.getMinute());
+				System.out.println(dataAgenda.getMinute() + recorrencia);
+				dataAgenda = dataAgenda.of(dataAgenda.getYear(),dataAgenda.getMonthValue(),dataAgenda.getDayOfMonth(),dataAgenda.getHour(),dataAgenda.getMinute() + recorrencia);
+			}
+			else
+			{
+				if (dataAgenda.getHour() < 17)
+				{
+					dataAgenda = dataAgenda.of(dataAgenda.getYear(),dataAgenda.getMonthValue(),dataAgenda.getDayOfMonth(),dataAgenda.getHour() + 1, 0);
+				}
+				else
+				{
+					dataAgenda = dataAgenda.of(dataAgenda.getYear(),dataAgenda.getMonthValue(),dataAgenda.getDayOfMonth() + 1 , 8, 0);
+					dataReg = dataReg.of(dataReg.getYear(), dataReg.getMonthValue(), dataReg.getDayOfMonth() + 1);
+				}
+			}
+		}
+	}
 	
 	public AgendaMedica create(AgendaMedica obj) {
+	//	createLote(null, null, null, 20);
 		return repository.save(obj);
 	}
 

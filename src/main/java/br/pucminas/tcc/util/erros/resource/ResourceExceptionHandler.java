@@ -1,5 +1,7 @@
 package br.pucminas.tcc.util.erros.resource;
 
+import java.sql.SQLIntegrityConstraintViolationException;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -51,6 +53,17 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
 	}
 
+	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+	public ResponseEntity<StandardError> sQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
+		String mensagem = e.getMessage();
+		if("Duplicate".equalsIgnoreCase(e.getMessage().substring(0, 9)))
+		{
+			mensagem = "Entrada Duplicada não permitida";
+		}
+		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis(), mensagem);
+		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
+	}
+	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
 		StringBuilder message2 = new StringBuilder();

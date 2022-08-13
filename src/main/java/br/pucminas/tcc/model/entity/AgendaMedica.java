@@ -19,7 +19,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 @Table(name = "AGENDAMEDICA")
 public class AgendaMedica extends AbstractEntity<Long>{
 
-	@Column(nullable=false)
+	@Column(nullable=false, unique=true)
 	private LocalDateTime dataAgenda;
 	
 	@JsonManagedReference
