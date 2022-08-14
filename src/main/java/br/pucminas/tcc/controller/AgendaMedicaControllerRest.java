@@ -157,7 +157,7 @@ public class AgendaMedicaControllerRest {
 	@PutMapping(value="/{id}")
 	public ResponseEntity<AgendaMedica> editar(@PathVariable Long id, @RequestBody AgendaMedica obj) throws Exception{
 
-		if (obj.getCliente().getId() == 0)
+		if (obj.getCliente() != null && obj.getCliente().getId() == 0)
 		{
 			obj.setCliente(null);
 		}
