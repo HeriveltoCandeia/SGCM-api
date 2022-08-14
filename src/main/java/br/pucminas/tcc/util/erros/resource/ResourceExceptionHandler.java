@@ -53,16 +53,16 @@ public class ResourceExceptionHandler {
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
 	}
 
-	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
-	public ResponseEntity<StandardError> sQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
-		String mensagem = e.toString();
-		if(mensagem.contains("Duplicate"))
-		{
-			mensagem = "Entrada Duplicada não permitida";
-		}
-		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis(), mensagem);
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
-	}
+//	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+//	public ResponseEntity<StandardError> sQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
+//		String mensagem = e.toString();
+//		if(mensagem.contains("Duplicate"))
+//		{
+//			mensagem = "Entrada Duplicada não permitida";
+//		}
+//		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis(), mensagem);
+//		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
+//	}
 	
 	@ExceptionHandler(ConstraintViolationException.class)
 	public ResponseEntity<StandardError> constraintViolationException(ConstraintViolationException e, HttpServletRequest request) {
