@@ -3,6 +3,7 @@ package br.pucminas.tcc.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -183,7 +184,8 @@ public class DBService {
 	private void carregarAgenda() {
 		AgendaMedica agendaMedica = new AgendaMedica();
 		Funcionario med = new Funcionario();
-		LocalDate dtAtu = LocalDate.of(2022, 8, 8);
+		Date dataAtu = new Date();
+		LocalDate dtAtu = LocalDate.of(2022, dataAtu.getMonth()+1, dataAtu.getDate());
 		LocalTime hrAtu = LocalTime.of(8, 30);
 		LocalDateTime dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
 		med.setId(3L);
@@ -194,6 +196,7 @@ public class DBService {
 		agendaMedica.setDataAgenda(dtTimeAtu);
 		serviceAgenda.create(agendaMedica);		
 
+		agendaMedica = new AgendaMedica();
 		agendaMedica.setMedico(med);
 		agendaMedica.setCodigoSituacao(1);
 		agendaMedica.setCodigoTipo(1);
@@ -208,7 +211,8 @@ public class DBService {
 		ProntuarioMedico prontuarioMedico = new ProntuarioMedico();
 		Funcionario med = new Funcionario();
 		Cliente cli = new Cliente();
-		LocalDate dtAtu = LocalDate.of(2022, 8, 8);
+		Date dataAtu = new Date();
+		LocalDate dtAtu = LocalDate.of(2022, dataAtu.getMonth()+1, dataAtu.getDate());
 		LocalTime hrAtu = LocalTime.of(8, 30);
 		LocalDateTime dtTimeAtu = LocalDateTime.of(dtAtu, hrAtu);
 		med.setId(3L);
@@ -220,6 +224,7 @@ public class DBService {
 		prontuarioMedico.setDataTimeProntuario(dtTimeAtu);
 		serviceProntuario.create(prontuarioMedico);		
 
+		prontuarioMedico = new ProntuarioMedico();
 		prontuarioMedico.setMedico(med);
 		prontuarioMedico.setCodigoSituacao(1);
 		cli.setId(5L);
@@ -243,6 +248,7 @@ public class DBService {
 		prontuarioMedicamento.setOrientacoes("3 x ao dia");
 		serviceProntuarioMedicamento.create(prontuarioMedicamento);		
 
+		prontuarioMedicamento = new ProntuarioMedicamento();
 		medicamento.setId(2L);
 		prontuarioMedico.setId(1L);
 		prontuarioMedicamento.setProntuarioMedico(prontuarioMedico);
@@ -250,8 +256,9 @@ public class DBService {
 		prontuarioMedicamento.setOrientacoes("1 x ao dia");
 		serviceProntuarioMedicamento.create(prontuarioMedicamento);		
 
+		prontuarioMedicamento = new ProntuarioMedicamento();
 		medicamento.setId(2L);
-		prontuarioMedico.setId(1L);
+		prontuarioMedico.setId(2L);
 		prontuarioMedicamento.setProntuarioMedico(prontuarioMedico);
 		prontuarioMedicamento.setMedicamento(medicamento);
 		prontuarioMedicamento.setOrientacoes("3 x ao dia");
@@ -271,15 +278,17 @@ public class DBService {
 		prontuarioExame.setCodigoSituacao(1);		
 		serviceProntuarioExame.create(prontuarioExame);		
 
+		prontuarioExame = new ProntuarioExame();
 		exame.setId(2L);
-		prontuarioExame.setId(1L);
+		prontuarioMedico.setId(1L);
 		prontuarioExame.setProntuarioMedico(prontuarioMedico);
 		prontuarioExame.setExame(exame);
 		prontuarioExame.setCodigoSituacao(1);
 		serviceProntuarioExame.create(prontuarioExame);		
 
+		prontuarioExame = new ProntuarioExame();
 		exame.setId(2L);
-		prontuarioExame.setId(1L);
+		prontuarioMedico.setId(2L);
 		prontuarioExame.setProntuarioMedico(prontuarioMedico);
 		prontuarioExame.setExame(exame);
 		prontuarioExame.setOrientacoes("Jejum");
