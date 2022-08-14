@@ -60,10 +60,6 @@ public class ResourceExceptionHandler {
 		{
 			mensagem = "Entrada Duplicada não permitida";
 		}
-		if("".equalsIgnoreCase(mensagem))
-		{
-			mensagem = "Ação não permitida. Informação já existente ou inconsistente.";
-		}
 		StandardError error = new StandardError(HttpStatus.BAD_REQUEST.value(), System.currentTimeMillis(), mensagem);
 		return ResponseEntity.status(HttpStatus.BAD_REQUEST.value()).body(error);
 	}
