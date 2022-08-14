@@ -22,6 +22,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import br.pucminas.tcc.model.entity.AgendaMedica;
+import br.pucminas.tcc.model.entity.AgendaMedicaLote;
 import br.pucminas.tcc.model.entity.Cliente;
 import br.pucminas.tcc.model.entity.Funcionario;
 import br.pucminas.tcc.model.service.AgendaMedicaServiceRest;
@@ -128,6 +129,31 @@ public class AgendaMedicaControllerRest {
 		return ResponseEntity.created(uri).body(obj);
 	}
 	
+	@PostMapping("/lote")
+	public ResponseEntity<AgendaMedicaLote> incluirLote(@RequestBody AgendaMedicaLote obj) throws Exception {
+		
+//      *****************************************************	
+//		Verifica os acessos para o Cargo do usuário logado.
+//      *****************************************************
+//		// 1 -> Administrador , 2 -> Atendente, 3-> Médico	
+		int[] ace = { 1, 3};
+		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
+//      *****************************************************
+		
+		System.out.println("Objeto Recebido");
+		System.out.println(obj.getDataInicial());
+		System.out.println(obj.getDataFinal());
+		System.out.println(obj.getHoraInicial());
+		System.out.println(obj.getHoraFinal());
+		System.out.println(obj.getCodigoSituacao());
+		System.out.println(obj.getCodigoTipo());
+		System.out.println(obj.getCodigoTempo());
+
+//		return ResponseEntity.ok().build();
+		service.createLote(obj.getMedico(), obj.getDataInicial(), obj.getDataFinal(), obj.getHoraInicial(), obj.getHoraFinal(), obj.getCodigoSituacao(), obj.getCodigoTipo(), obj.getCodigoTempo());
+		return ResponseEntity.ok().body(obj);
+	}
+
 	@PutMapping(value="/{id}")
 	public ResponseEntity<AgendaMedica> editar(@PathVariable Long id, @RequestBody AgendaMedica obj) throws Exception{
 

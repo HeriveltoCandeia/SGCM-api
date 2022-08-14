@@ -75,10 +75,6 @@ public class FuncionarioControllerRest {
 		Long cargo = serviceUsu.verificaAcessoUsuario(ace);
 //      *****************************************************
 		
-		System.out.println("Funcionário");
-		System.out.println(obj.getNome());
-		System.out.println(obj.getCpf());		
-		System.out.println(obj.getCodigoCargo());
 		try
 		{
 			obj=service.create(obj);			

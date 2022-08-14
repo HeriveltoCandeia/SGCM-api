@@ -42,19 +42,19 @@ public class AgendaMedicaServiceRest {
 				{
 					if(filMed)
 					{
-						Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, medico, dataReg, codigoSituacao);
+						Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegAndCodigoSituacaoOrderByDataAgendaAsc(cliente, medico, dataReg, codigoSituacao);
 						return obj.orElse(null);					
 					}
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, dataReg, codigoSituacao);
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegAndCodigoSituacaoOrderByDataAgendaAsc(cliente, dataReg, codigoSituacao);
 					return obj.orElse(null);				
 				}
 				
 				if(filMed)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(medico, dataReg, codigoSituacao);			
+					Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegAndCodigoSituacaoOrderByDataAgendaAsc(medico, dataReg, codigoSituacao);			
 					return obj.orElse(null);
 				}
-				Optional<List<AgendaMedica>> obj = repository.findByDataRegAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(dataReg, codigoSituacao);
+				Optional<List<AgendaMedica>> obj = repository.findByDataRegAndCodigoSituacaoOrderByDataAgendaAsc(dataReg, codigoSituacao);
 				return obj.orElse(null);
 			}
 			
@@ -62,21 +62,21 @@ public class AgendaMedicaServiceRest {
 			{
 				if(filCli)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, medico, codigoSituacao);			
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndCodigoSituacaoOrderByDataAgendaAsc(cliente, medico, codigoSituacao);			
 					return obj.orElse(null);			
 				}
 	
-				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(medico, codigoSituacao);			
+				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndCodigoSituacaoOrderByDataAgendaAsc(medico, codigoSituacao);			
 				return obj.orElse(null);
 			}
 			
 			if(filCli)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndCodigoSituacaoOrderByDataRegDescDataAgendaAsc(cliente, codigoSituacao);			
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndCodigoSituacaoOrderByDataAgendaAsc(cliente, codigoSituacao);			
 				return obj.orElse(null);			
 			}
 
-			Optional<List<AgendaMedica>> obj = repository.findByCodigoSituacaoOrderByDataRegDescDataAgendaAsc(codigoSituacao);			
+			Optional<List<AgendaMedica>> obj = repository.findByCodigoSituacaoOrderByDataAgendaAsc(codigoSituacao);			
 			return obj.orElse(null);						
 		}
 		
@@ -86,20 +86,20 @@ public class AgendaMedicaServiceRest {
 			{
 				if(filMed)
 				{
-					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegOrderByDataRegDescDataAgendaAsc(cliente, medico, dataReg);
+					Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoAndDataRegOrderByDataAgendaAsc(cliente, medico, dataReg);
 					return obj.orElse(null);					
 				}
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegOrderByDataRegDescDataAgendaAsc(cliente, dataReg);
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndDataRegOrderByDataAgendaAsc(cliente, dataReg);
 				return obj.orElse(null);				
 			}
 			
 			if(filMed)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegOrderByDataRegDescDataAgendaAsc(medico, dataReg);			
+				Optional<List<AgendaMedica>> obj = repository.findByMedicoAndDataRegOrderByDataAgendaAsc(medico, dataReg);			
 				return obj.orElse(null);
 			}
 			
-			Optional<List<AgendaMedica>> obj = repository.findByDataRegOrderByDataRegDescDataAgendaAsc(dataReg);
+			Optional<List<AgendaMedica>> obj = repository.findByDataRegOrderByDataAgendaAsc(dataReg);
 			return obj.orElse(null);
 		}
 		
@@ -107,32 +107,32 @@ public class AgendaMedicaServiceRest {
 		{
 			if(filCli)
 			{
-				Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoOrderByDataRegDescDataAgendaAsc(cliente, medico);			
+				Optional<List<AgendaMedica>> obj = repository.findByClienteAndMedicoOrderByDataAgendaAsc(cliente, medico);			
 				return obj.orElse(null);			
 			}
 
-			Optional<List<AgendaMedica>> obj = repository.findByMedicoOrderByDataRegDescDataAgendaAsc(medico);			
+			Optional<List<AgendaMedica>> obj = repository.findByMedicoOrderByDataAgendaAsc(medico);			
 			return obj.orElse(null);
 		}
 		
 		if(filCli)
 		{
-			Optional<List<AgendaMedica>> obj = repository.findByClienteOrderByDataRegDescDataAgendaAsc(cliente);			
+			Optional<List<AgendaMedica>> obj = repository.findByClienteOrderByDataAgendaAsc(cliente);			
 			return obj.orElse(null);			
 		}
 		return (null);	
 	}		
 	
-	public void createLote(Funcionario medico, LocalDate dataInicio, LocalDate dataFim, Integer recorrencia )
+	public void createLote(Funcionario medico, LocalDate dataInicio, LocalDate dataFim, LocalTime horaInicio, LocalTime horaFim, Integer codSituacao, Integer codTipoAgenda, Integer codTempo )
 	{
-		medico = new Funcionario();
-		medico.setId(3L);
-		dataInicio = LocalDate.of(2022, 8, 14);
-		dataFim = LocalDate.of(2022, 8, 15);
-
-		LocalTime horaInicio = LocalTime.of(8, 0);
-		LocalTime horaFim = LocalTime.of(17, 0);
-
+//		medico = new Funcionario();
+//		medico.setId(3L);
+//		dataInicio = LocalDate.of(2022, 8, 14);
+//		dataFim = LocalDate.of(2022, 8, 15);
+//		horaInicio = LocalTime.of(8, 0);
+//		horaFim = LocalTime.of(17, 0);
+//		tipoAgenda = 1;
+		
 		LocalDateTime dataHoraInicio = LocalDateTime.of(dataInicio, horaInicio);
 		LocalDateTime dataHoraFim = LocalDateTime.of(dataFim, horaFim);
 		
@@ -142,8 +142,8 @@ public class AgendaMedicaServiceRest {
 		for(int i=0;dataAgenda.compareTo(dataHoraFim)<0 && i<35;i++)
 		{
 			AgendaMedica agendaMedica = new AgendaMedica();
-			agendaMedica.setCodigoSituacao(1);
-			agendaMedica.setCodigoTipo(1);
+			agendaMedica.setCodigoSituacao(codSituacao);
+			agendaMedica.setCodigoTipo(codTipoAgenda);
 			agendaMedica.setMedico(medico);
 			agendaMedica.setDataReg(dataReg);
 			agendaMedica.setDataAgenda(dataAgenda);
@@ -157,12 +157,12 @@ public class AgendaMedicaServiceRest {
 				duplicados++;
 			}
 
-			if ((dataAgenda.getMinute() + recorrencia)<60)
+			if ((dataAgenda.getMinute() + codTempo)<60)
 			{
 				System.out.println("Dentro do IF");
 				System.out.println(dataAgenda.getMinute());
-				System.out.println(dataAgenda.getMinute() + recorrencia);
-				dataAgenda = dataAgenda.of(dataAgenda.getYear(),dataAgenda.getMonthValue(),dataAgenda.getDayOfMonth(),dataAgenda.getHour(),dataAgenda.getMinute() + recorrencia);
+				System.out.println(dataAgenda.getMinute() + codTempo);
+				dataAgenda = dataAgenda.of(dataAgenda.getYear(),dataAgenda.getMonthValue(),dataAgenda.getDayOfMonth(),dataAgenda.getHour(),dataAgenda.getMinute() + codTempo);
 			}
 			else
 			{
