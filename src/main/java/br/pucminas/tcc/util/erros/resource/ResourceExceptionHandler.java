@@ -55,8 +55,8 @@ public class ResourceExceptionHandler {
 
 	@ExceptionHandler(SQLIntegrityConstraintViolationException.class)
 	public ResponseEntity<StandardError> sQLIntegrityConstraintViolationException(SQLIntegrityConstraintViolationException e, HttpServletRequest request) {
-		String mensagem = e.getMessage();
-		if("Duplicate".equalsIgnoreCase(e.getMessage().substring(0, 9)))
+		String mensagem = e.toString();
+		if(mensagem.contains("Duplicate"))
 		{
 			mensagem = "Entrada Duplicada não permitida";
 		}
