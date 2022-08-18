@@ -3,6 +3,7 @@ package br.pucminas.tcc.model.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -10,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import br.pucminas.tcc.model.dao.AgendaMedicaRepositoryRest;
+import br.pucminas.tcc.model.dao.AgendaMedicaRepositoryRest2;
 import br.pucminas.tcc.model.entity.AgendaMedica;
 import br.pucminas.tcc.model.entity.ChaveCompostaAgenda;
 import br.pucminas.tcc.model.entity.Cliente;
@@ -20,6 +22,10 @@ import br.pucminas.tcc.model.entity.ProntuarioMedico;
 public class AgendaMedicaServiceRest {
 	@Autowired
 	private AgendaMedicaRepositoryRest repository;
+
+	@Autowired
+	private AgendaMedicaRepositoryRest2 repository2;
+
 	public AgendaMedica findById(Long id) {
 		Optional<AgendaMedica> obj = repository.findById(id);
 		return obj.orElse(null);
@@ -33,7 +39,7 @@ public class AgendaMedicaServiceRest {
 
 		System.out.println(dataReg);
 		System.out.println(filData);
-		
+		updateVencido();
 		if(filSituacao)
 		{
 			if (filData)
@@ -195,6 +201,22 @@ public class AgendaMedicaServiceRest {
 		return repository.save(objA);
 	}
 
+	public void updateVencido() {
+
+		try {
+			List<AgendaMedica> listaAtualizar;
+			listaAtualizar = repository2.buscarVencidos();
+			for (AgendaMedica agenda : listaAtualizar)
+			{
+				agenda.setCodigoSituacao(4);
+				repository.save(agenda);
+			}
+		}
+		catch(Exception e){
+			System.out.println(e);
+		}
+	}
+	
 	public void delete(Long id) {
 		findById(id);
 		repository.deleteById(id);
