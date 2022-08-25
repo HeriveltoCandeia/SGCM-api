@@ -54,6 +54,8 @@ public class FuncionarioServiceRest {
 		objA.setEmail(obj.getEmail());
 		objA.setNome(obj.getNome());
 		objA.setSexo(obj.getSexo());
+		objA.setUsuario(obj.getUsuario());
+		objA.setSenha(obj.getSenha());
 		return repository.save(objA);
 	}
 
